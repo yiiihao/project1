@@ -41,8 +41,8 @@ DB_PASSWORD = "4798"
 
 DB_SERVER = "w4111.cisxo09blonu.us-east-1.rds.amazonaws.com"
 
-#DATABASEURI = "postgresql://"+DB_USER+":"+DB_PASSWORD+"@"+DB_SERVER+"/w4111"
-DATABASEURI = postgresql://yg2820:4798@w4111.cisxo09blonu.us-east-1.rds.amazonaws.com/proj1part2
+DATABASEURI = "postgresql://"+DB_USER+":"+DB_PASSWORD+"@"+DB_SERVER+"/w4111"
+#DATABASEURI = postgresql://yg2820:4798@w4111.cisxo09blonu.us-east-1.rds.amazonaws.com/proj1part2
 
 #
 # This line creates a database engine that knows how to connect to the URI above
