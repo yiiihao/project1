@@ -140,7 +140,7 @@ def index():
   #
   #     # will 
     
-    : [u'grace hopper', u'alan turing', u'ada lovelace']
+    #: [u'grace hopper', u'alan turing', u'ada lovelace']
   #     <div>{{data}}</div>
   #     
   #     # creates a <div> tag for each element in data
