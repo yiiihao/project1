@@ -114,7 +114,7 @@ def index():
   """
 
   # DEBUG: this is debugging code to see what request looks like
-  print request.args
+  print(request.args)
 
 
   #
@@ -138,7 +138,9 @@ def index():
   # for example, "data" key in the context variable defined below will be 
   # accessible as a variable in index.html:
   #
-  #     # will print: [u'grace hopper', u'alan turing', u'ada lovelace']
+  #     # will 
+    
+    : [u'grace hopper', u'alan turing', u'ada lovelace']
   #     <div>{{data}}</div>
   #     
   #     # creates a <div> tag for each element in data
@@ -212,7 +214,7 @@ if __name__ == "__main__":
     """
 
     HOST, PORT = host, port
-    print "running on %s:%d" % (HOST, PORT)
+    print("running on %s:%d" % (HOST, PORT))
     app.run(host=HOST, port=PORT, debug=debug, threaded=threaded)
 
 
