@@ -10,24 +10,21 @@
 <body>
   <h1>Beijing Winter Olympic Information</h1>
   
-  <p> Tables in out database
-  <div>
-    {% for n in test %}
-    <div>{{n}}</div>
-    {% endfor %}
-  </div>
+  <p> Tables in out database 数据库中的可用表
+    
+  <div>{{all_tables}}</div>
   
-  <p> The 5th query result
+  <p> All events 所有比赛信息
   <div>
-    {% for n in data %}
-    <div>{{n}}</div>
+    {% for event in event_data %}
+    <div>{{event}}</div>
     {% endfor %}
   </div>
 
-<p><a href="/another">有用吗</a></p>
+<p><a href="/another">View Medal Ranking 查看奖牌榜</a></p>
 
 <form method="POST" action="/add">
-<p>Interested Events: <input type="text" name="name"> <input type="submit" value="Add"></p>
+<p>Interested Events: <input type="int" name="id"> <input type="submit" value="Add"></p>
 </form>
 
 </body>
