@@ -10,7 +10,14 @@
 <body>
   <h1>Beijing Winter Olympic Information</h1>
   <div>{{data}}</div>
-
+  <div>{{test}}</div>
+  
+  <div>
+    {% for n in test %}
+    <div>{{n}}</div>
+    {% endfor %}
+  </div>
+  
   <div>
     {% for n in data %}
     <div>{{n}}</div>
