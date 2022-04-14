@@ -11,8 +11,9 @@
   <h1>Beijing Winter Olympic Information</h1>
   
   <p> Tables in out database 数据库中的可用表
-    
   <div>{{all_tables}}</div>
+  
+  <p><a href="/medal_ranking">View Medal Ranking 查看奖牌榜</a></p>
   
   <p> All events 所有比赛信息
   <div>
@@ -20,8 +21,6 @@
     <div>{{event}}</div>
     {% endfor %}
   </div>
-
-<p><a href="/another">View Medal Ranking 查看奖牌榜</a></p>
 
 <form method="POST" action="/add">
 <p>Interested Events: <input type="int" name="id"> <input type="submit" value="Add"></p>
