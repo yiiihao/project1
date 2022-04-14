@@ -185,12 +185,21 @@ def event_schedule():
   return render_template("event_schedule.html")
 
 
-# Example of adding new data to the database
+# add new data to the interest_event table 添加喜欢的比赛
 @app.route('/add', methods=['POST'])
 def add():
   new_id = request.form['id']
   print(new_id)
   cmd = 'INSERT INTO interested_event(id) VALUES (:id)';
+  g.conn.execute(text(cmd), id = new_id);
+  return redirect('/')
+
+# delete input data to the interested_event table 删除喜欢的比赛
+@app.route('/delete', methods=['POST'])
+def delete():
+  new_id = request.form['id']
+  print(new_id)
+  cmd = 'DELETE FROM interested_event WHERE id=(:id)';
   g.conn.execute(text(cmd), id = new_id);
   return redirect('/')
 
