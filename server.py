@@ -77,10 +77,8 @@ def index():
 
   # DEBUG: this is debugging code to see what request looks like
   print(request.args)
-           
-  context = dict(all_tables = engine.table_names())
-
-  return render_template("index.html", **context)
+          
+  return render_template("index.html")
 
 #创建分页面1 奖牌
 @app.route('/medal_ranking')
