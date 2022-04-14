@@ -172,15 +172,14 @@ def index():
 # notice that the functio name is another() rather than index()
 # the functions for each app.route needs to have different names
 #
-#@app.route('/another')
-#def another():
-#  return render_template("anotherfile.html")
-
+@app.route('/medal_ranking')
+def another():
+  return render_template("medal_ranking.html")
 
 # Example of adding new data to the database
 @app.route('/add', methods=['POST'])
 def add():
-  new_id = request.form['name']
+  new_id = request.form['id']
   print(new_id)
   cmd = 'INSERT INTO interested_event(id) VALUES (:id)';
   g.conn.execute(text(cmd), id = new_id);
