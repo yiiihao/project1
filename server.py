@@ -118,7 +118,7 @@ def index():
      "GROUP BY (b.first_name, b.last_name)"
      "HAVING COUNT(a.medal_id) > 1")
 
-  cursor = g.conn.execute(q)
+  cursor = g.conn.execute(q1)
   names = []
   for result in cursor:
     names.append(result[0])  # can also be accessed using result[0]
