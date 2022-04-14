@@ -111,12 +111,8 @@ def index():
   #
   # example of a database query
   #
-  q1 = text("SELECT b.first_name, b.last_name, COUNT(a.medal_id) num_medal"
-     "FROM medals_of_event_of_athlete a"
-     "LEFT JOIN Athletes b"
-     "on a.athlete_id = b.athlete_id"
-     "GROUP BY (b.first_name, b.last_name)"
-     "HAVING COUNT(a.medal_id) > 1")
+  q1 = text("SELECT *"
+     "FROM medals_of_event_of_athlete")
 
   cursor = g.conn.execute(q1)
   names = []
