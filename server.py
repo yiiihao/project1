@@ -54,7 +54,6 @@ engine.execute("""CREATE TABLE IF NOT EXISTS test (
 engine.execute("""INSERT INTO test(name) VALUES ('grace hopper'), ('alan turing'), ('ada lovelace');""")
 
 
-
 @app.before_request
 def before_request():
   """
@@ -118,7 +117,8 @@ def index():
   for result in cursor:
     names.append(result['name'])  # can also be accessed using result[0]
   cursor.close()
-
+  
+  
 
   #
   # Flask uses Jinja templates, which is an extension to HTML where you can
@@ -146,7 +146,7 @@ def index():
   #     <div>{{n}}</div>
   #     {% endfor %}
   #
-  context = dict(data = names)
+  context = dict(data = names,test = engine.table_names())
 
 
   #
