@@ -68,6 +68,19 @@ def teardown_request(exception):
   except Exception as e:
     pass
 
+#创建分页面
+@app.route('/medal_ranking')
+def medal_ranking():
+  return render_template("medal_ranking.html")
+
+@app.route('/athlete_information')
+def athlete_information():
+  return render_template("athlete_information.html")
+
+@app.route('/event_schedule')
+def 
+():
+  return render_template("event_schedule.html")
 
 #首页html
 @app.route('/')
@@ -110,19 +123,6 @@ def event_schedule():
 
   return render_template("event_schedule.html", **context)
 
-
-#创建分页面
-@app.route('/medal_ranking')
-def medal_ranking():
-  return render_template("medal_ranking.html")
-
-@app.route('/athlete_information')
-def athlete_information():
-  return render_template("athlete_information.html")
-
-@app.route('/event_schedule')
-def event_schedule():
-  return render_template("event_schedule.html")
 
 
 # 添加喜欢的比赛 add new data to the interest_event table
