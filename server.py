@@ -112,7 +112,7 @@ def index():
   # example of a database query
   #
   q1 = text("SELECT *"
-     "FROM medals_of_event_of_athlete")
+     "FROM Athletes")
 
   cursor = g.conn.execute(q1)
   names = []
