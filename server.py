@@ -148,10 +148,9 @@ def add():
   try:
       cmd = 'INSERT INTO interested_event(id) VALUES (:id)';
       g.conn.execute(text(cmd), id = new_id);
-      return redirect('/event_schedule')
   except:
-      error = "Event id already exists"
-      return render_template('/event_schedule.html', error=error)
+      pass
+  return redirect('/event_schedule')
 
 # 删除喜欢的比赛 delete input data to the interested_event table
 @app.route('/delete', methods=['POST'])
