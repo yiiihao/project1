@@ -22,6 +22,13 @@
     {% endfor %}
   </div>
 
+  <p> User's interested event id
+  <div>
+    {% for n in id_data %}
+    <div>{{n}}</div>
+    {% endfor %}
+  </div>
+
 <form method="POST" action="/add">
 <p>Interested Events: <input type="int" name="id"> <input type="submit" value="Add"></p>
 </form>
