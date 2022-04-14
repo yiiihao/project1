@@ -130,7 +130,7 @@ def add():
   print(new_id)
   cmd = 'INSERT INTO interested_event(id) VALUES (:id)';
   g.conn.execute(text(cmd), id = new_id);
-  return redirect('/')
+  return redirect('/event_schedule')
 
 # 删除喜欢的比赛 delete input data to the interested_event table
 @app.route('/delete', methods=['POST'])
@@ -139,7 +139,7 @@ def delete():
   print(new_id)
   cmd = 'DELETE FROM interested_event WHERE id=(:id)';
   g.conn.execute(text(cmd), id = new_id);
-  return redirect('/')
+  return redirect('/event_schedule')
 
 
 @app.route('/login')
