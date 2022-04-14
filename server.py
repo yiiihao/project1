@@ -112,11 +112,18 @@ def index():
   #
   # example of a database query
   #
+
   cursor = g.conn.execute("SELECT name FROM test")
   names = []
   for result in cursor:
     names.append(result['name'])  # can also be accessed using result[0]
   cursor.close()
+
+  cursor1 = g.conn.execute("SELECT first_name FROM Athletes")
+  name1 = []
+  for result in cursor1:
+    name1.append(result['first_name'])
+  cursor1.close()
 
   #
   # Flask uses Jinja templates, which is an extension to HTML where you can
@@ -161,9 +168,9 @@ def index():
 # notice that the functio name is another() rather than index()
 # the functions for each app.route needs to have different names
 #
-@app.route('/another')
-def another():
-  return render_template("anotherfile.html")
+#@app.route('/another')
+#def another():
+#  return render_template("anotherfile.html")
 
 
 # Example of adding new data to the database
