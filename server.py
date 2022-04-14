@@ -45,13 +45,11 @@ DATABASEURI = "postgresql://"+DB_USER+":"+DB_PASSWORD+"@"+DB_SERVER+"/proj1part2
 engine = create_engine(DATABASEURI)
 
 
-# Here we create a test table and insert some values in it
-engine.execute("""DROP TABLE IF EXISTS test;""")
-engine.execute("""CREATE TABLE IF NOT EXISTS test (
-  id serial,
-  name text
-);""")
-engine.execute("""INSERT INTO test(name) VALUES ('grace hopper'), ('alan turing'), ('ada lovelace');""")
+# Here we create a interested_event table for users to add event id they are interested in
+engine.execute("""DROP TABLE IF EXISTS interested_event;""")
+engine.execute("""CREATE TABLE IF NOT EXISTS interested_event (
+  id serial);""")
+engine.execute("""INSERT INTO interested_event(id) VALUES (1), (5);""")
 
 
 @app.before_request
@@ -112,16 +110,23 @@ def index():
   # example of a database query
   #
   q1 = text("SELECT *"
-     "FROM Athletes")
+     "FROM Events")
 
-  cursor = g.conn.execute(q1)
-  names = []
-  for result in cursor:
-    names.append(result)  # can also be accessed using result[0]
-  cursor.close()
+  cursor_q1 = g.conn.execute(q1)
+  events = []
+  for result in cursor_q1:
+    events.append(result)  # can also be accessed using result[0]
+  cursor_q1.close()
   
   
-
+  q2 = text("SELECT * FROM interested_event")
+  cursor_q2 = g.conn.execute(q2)
+  interested_event_id = []
+  for result in cursor_q2:
+    interested_event_id.append(result)
+  cursor_q2.close()
+           
+        
   #
   # Flask uses Jinja templates, which is an extension to HTML where you can
   # pass data to a template and dynamically generate HTML based on the data
@@ -148,7 +153,7 @@ def index():
   #     <div>{{n}}</div>
   #     {% endfor %}
   #
-  context = dict(data = names,test = engine.table_names())
+  context = dict(data = events,test = engine.table_names(),id = interested_event_id)
 
 
   #
