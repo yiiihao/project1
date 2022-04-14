@@ -153,7 +153,9 @@ def index():
   #     <div>{{n}}</div>
   #     {% endfor %}
   #
-  context = dict(data = events,test = engine.table_names(),id = interested_event_id)
+  context = dict(event_data = events, 
+                 all_tables = engine.table_names(),
+                 id_data = interested_event_id)
 
 
   #
