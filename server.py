@@ -119,11 +119,6 @@ def index():
     names.append(result['name'])  # can also be accessed using result[0]
   cursor.close()
 
-  cursor1 = g.conn.execute("SELECT first_name FROM Athletes")
-  name1 = []
-  for result in cursor1:
-    name1.append(result['first_name'])
-  cursor1.close()
 
   #
   # Flask uses Jinja templates, which is an extension to HTML where you can
