@@ -117,7 +117,7 @@ def index():
   cursor = g.conn.execute(q1)
   names = []
   for result in cursor:
-    names.append(result[0])  # can also be accessed using result[0]
+    names.append(result)  # can also be accessed using result[0]
   cursor.close()
   
   
