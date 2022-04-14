@@ -132,7 +132,7 @@ def add():
   cursor = g.conn.execute(text(query))
   exists_id = []
   for result in cursor:
-    exists_id.append(result)
+    exists_id.append(result[0])
   cursor.close()
   if new_id in exists_id:
     error = "Event id already exists"
