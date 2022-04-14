@@ -1,1 +1,44 @@
-This is medal ranking
+<form method="POST" action="index.php?action=contact_agent&agent_id=">
+<select>
+<option value="1">Agent Homer</option>
+<option value="2">Agent Lenny</option>
+<option value="3">Agent Carl</option>
+</select>
+  
+ <html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>Medal Ranking 奖牌榜</h1>
+
+  <p>Choose sports category and medal type, click return to view the results<p>
+  
+<form method='POST',action="/action_page.php">
+<label for="category">Choose category:</label>
+<label for="type">Choose medal type:</label>
+  
+<select id="category" name="category">
+  <option value="Figure Skating">Figure Skating</option>
+  <option value="Freestyle Skiing">Freestyle Skiing</option>
+  <option value="Snowboard">Snowboard</option>
+</select>
+<select id="type" name="type">
+  <option value="gold">gold</option>
+  <option value="silver">silver</option>
+  <option value="bronze">bronze</option>
+</select>
+<input type="submit" value="Submit">
+</form>
+
+
+
+</body>
+
+
+</html>
