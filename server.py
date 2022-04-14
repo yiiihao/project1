@@ -173,8 +173,17 @@ def index():
 # the functions for each app.route needs to have different names
 #
 @app.route('/medal_ranking')
-def another():
+def medal_ranking():
   return render_template("medal_ranking.html")
+
+@app.route('/athlete_information')
+def athlete_information():
+  return render_template("athlete_information.html")
+
+@app.route('/event_schedule')
+def event_schedule():
+  return render_template("event_schedule.html")
+
 
 # Example of adding new data to the database
 @app.route('/add', methods=['POST'])
