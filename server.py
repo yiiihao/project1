@@ -131,7 +131,7 @@ def add():
     cmd = 'INSERT INTO interested_event(id) VALUES (:id)';
     g.conn.execute(text(cmd), id = new_id);
   except:
-    print("Event id already exists")
+    logger.error("Event id already exists")
   return redirect('/event_schedule')
 
 # 删除喜欢的比赛 delete input data to the interested_event table
