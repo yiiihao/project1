@@ -180,10 +180,10 @@ def index():
 # Example of adding new data to the database
 @app.route('/add', methods=['POST'])
 def add():
-  name = request.form['name']
-  print(name)
-  cmd = 'INSERT INTO test(name) VALUES (:name1), (:name2)';
-  g.conn.execute(text(cmd), name1 = name, name2 = name);
+  new_id = request.form['name']
+  print(new_id)
+  cmd = 'INSERT INTO interested_event(id) VALUES (:id)';
+  g.conn.execute(text(cmd), id = new_id);
   return redirect('/')
 
 
