@@ -78,8 +78,7 @@ def athlete_information():
   return render_template("athlete_information.html")
 
 @app.route('/event_schedule')
-def 
-():
+def event_schedule():
   return render_template("event_schedule.html")
 
 #首页html
