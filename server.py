@@ -38,8 +38,9 @@ engine = create_engine(DATABASEURI)
 # Here we create a interested_event table for users to add event id they are interested in
 engine.execute("""DROP TABLE IF EXISTS interested_event;""")
 engine.execute("""CREATE TABLE IF NOT EXISTS interested_event (
-  id serial);""")
-engine.execute("""INSERT INTO interested_event(id) VALUES (1), (5);""")
+  id serial,
+  primary key (id));""")
+#engine.execute("""INSERT INTO interested_event(id) VALUES (1), (5);""")
 
 
 @app.before_request
@@ -128,6 +129,14 @@ def event_schedule():
 def add():
   new_id = request.form['id']
   print(new_id)
+#   cmd0 = 'SELECT * FROM interested_event'
+#   cursor = g.conn.execute(text(cmd), id = new_id)
+#   exists_id = []
+#   for result in cursor:
+#         exists_id.append(result)
+#   cursor.close()
+#   if new_id in exists_id:
+         
   cmd = 'INSERT INTO interested_event(id) VALUES (:id)';
   g.conn.execute(text(cmd), id = new_id);
   return redirect('/event_schedule')
