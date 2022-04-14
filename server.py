@@ -68,18 +68,7 @@ def teardown_request(exception):
   except Exception as e:
     pass
 
-#创建分页面
-@app.route('/medal_ranking')
-def medal_ranking():
-  return render_template("medal_ranking.html")
 
-@app.route('/athlete_information')
-def athlete_information():
-  return render_template("athlete_information.html")
-
-@app.route('/event_schedule')
-def event_schedule():
-  return render_template("event_schedule.html")
 
 #首页html
 @app.route('/')
@@ -92,10 +81,20 @@ def index():
 
   return render_template("index.html", **context)
 
-#赛事信息html
-@app.route('/')
-def event_schedule():
+#创建分页面1 奖牌
+@app.route('/medal_ranking')
+def medal_ranking():
+  return render_template("medal_ranking.html")
 
+#创建分页面2 运动员
+@app.route('/athlete_information')
+def athlete_information():
+  return render_template("athlete_information.html")
+
+#创建分页面3 比赛信息
+@app.route('/event_schedule')
+def event_schedule():
+    
   # DEBUG: this is debugging code to see what request looks like
   print(request.args)
 
@@ -123,7 +122,7 @@ def event_schedule():
   return render_template("event_schedule.html", **context)
 
 
-
+# 互动功能
 # 添加喜欢的比赛 add new data to the interest_event table
 @app.route('/add', methods=['POST'])
 def add():
