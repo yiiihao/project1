@@ -164,6 +164,44 @@ def index():
   #
   return render_template("index.html", **context)
 
+#赛事信息html
+def event_schedule():
+
+  # DEBUG: this is debugging code to see what request looks like
+  print(request.args)
+
+  # query all events
+  q1 = text("SELECT *"
+     "FROM Events")
+
+  cursor_q1 = g.conn.execute(q1)
+  events = []
+  for result in cursor_q1:
+    events.append(result)  # can also be accessed using result[0]
+  cursor_q1.close()
+  
+  # query all interested events
+  q2 = text("SELECT * FROM interested_event")
+  cursor_q2 = g.conn.execute(q2)
+  interested_event_id = []
+  for result in cursor_q2:
+    interested_event_id.append(result)
+  cursor_q2.close()
+           
+  context = dict(event_data = events, 
+                 id_data = interested_event_id)
+
+
+  #
+  # render_template looks in the templates/ folder for files.
+  # for example, the below file reads template/index.html
+  #
+  return render_template("event_schedule.html", **context)
+
+
+
+
+
 #
 # This is an example of a different path.  You can see it at
 # 
