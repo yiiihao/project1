@@ -17,23 +17,7 @@
   <p><a href="/athlete_information">View Athlete Informarion 查看运动员信息</a></p>
   <p><a href="/event_schedule">View Event Schedule 查看赛事日程</a></p>
   
-  <p> All events 所有比赛信息
-  <div>
-    {% for event in event_data %}
-    <div>{{event}}</div>
-    {% endfor %}
-  </div>
-
-  <p> User's interested event id
-  <div>
-    {% for n in id_data %}
-    <div>{{n}}</div>
-    {% endfor %}
-  </div>
-
-<form method="POST" action="/add">
-<p>Interested Events: <input type="int" name="id"> <input type="submit" value="Add"></p>
-</form>
+  
 
 </body>
 
