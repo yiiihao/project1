@@ -129,16 +129,11 @@ def event_schedule():
 def add():
   new_id = request.form['id']
   print(new_id)
-#   cmd0 = 'SELECT * FROM interested_event'
-#   cursor = g.conn.execute(text(cmd), id = new_id)
-#   exists_id = []
-#   for result in cursor:
-#         exists_id.append(result)
-#   cursor.close()
-#   if new_id in exists_id:
-         
-  cmd = 'INSERT INTO interested_event(id) VALUES (:id)';
-  g.conn.execute(text(cmd), id = new_id);
+  try:
+    cmd = 'INSERT INTO interested_event(id) VALUES (:id)';
+    g.conn.execute(text(cmd), id = new_id);
+  except:
+    print("Event id already exists")
   return redirect('/event_schedule')
 
 # 删除喜欢的比赛 delete input data to the interested_event table
