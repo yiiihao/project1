@@ -125,14 +125,22 @@ def event_schedule():
 # 添加喜欢的比赛 add new data to the interest_event table
 @app.route('/add', methods=['POST'])
 def add():
+  error = None
   new_id = request.form['id']
   print(new_id)
-  try:
+  query = 'SELECT * FROM interested_event'
+  cursor = g.conn.execute(text(query))
+  exists_id = []
+  for result in cursor:
+    exists_id.append(result)
+  cursor.close()
+  if new_id in exists_id:
+    error = "Event id already exists"
+  else:
     cmd = 'INSERT INTO interested_event(id) VALUES (:id)';
     g.conn.execute(text(cmd), id = new_id);
-  except:
-    logger.error("Event id already exists")
-  return redirect('/event_schedule')
+    return redirect('/event_schedule')
+  return render_template('login.html', error=error)
 
 # 删除喜欢的比赛 delete input data to the interested_event table
 @app.route('/delete', methods=['POST'])
