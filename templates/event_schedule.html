@@ -1,1 +1,39 @@
-This is event schedule
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>Events Schedule</h1>
+
+  <p> All events 所有比赛信息
+  <div>
+    {% for event in event_data %}
+    <div>{{event}}</div>
+    {% endfor %}
+  </div>
+
+  <p> User's interested event id
+  <div>
+    {% for n in id_data %}
+    <div>{{n}}</div>
+    {% endfor %}
+  </div>
+
+<form method="POST" action="/add">
+<p>Add Interested Events: <input type="int" name="id"> <input type="submit" value="Add"></p>
+</form>
+  
+<form method="POST" action="/delete">
+<p>Remove Interested Events: <input type="int" name="id"> <input type="submit" value="Add"></p>
+</form>
+
+</body>
+
+
+</html>
+
