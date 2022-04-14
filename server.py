@@ -20,16 +20,6 @@ app = Flask(__name__, template_folder=tmpl_dir)
 
 
 
-# XXX: The Database URI should be in the format of: 
-#
-#     postgresql://USER:PASSWORD@<IP_OF_POSTGRE_SQL_SERVER>/<DB_NAME>
-#
-# For example, if you had username ewu2493, password foobar, then the following line would be:
-#
-#     DATABASEURI = "postgresql://ewu2493:foobar@<IP_OF_POSTGRE_SQL_SERVER>/postgres"
-#
-# For your convenience, we already set it to the class database
-
 # Use the DB credentials you received by e-mail
 DB_USER = "yg2820"
 DB_PASSWORD = "4798"
@@ -79,92 +69,19 @@ def teardown_request(exception):
     pass
 
 
-#
-# @app.route is a decorator around index() that means:
-#   run index() whenever the user tries to access the "/" path using a GET request
-#
-# If you wanted the user to go to e.g., localhost:8111/foobar/ with POST or GET then you could use
-#
-#       @app.route("/foobar/", methods=["POST", "GET"])
-#
-# PROTIP: (the trailing / in the path is important)
-# 
-# see for routing: http://flask.pocoo.org/docs/0.10/quickstart/#routing
-# see for decorators: http://simeonfranklin.com/blog/2012/jul/1/python-decorators-in-12-steps/
-#
+#首页html
 @app.route('/')
 def index():
-  """
-  request is a special object that Flask provides to access web request information:
-  request.method:   "GET" or "POST"
-  request.form:     if the browser submitted a form, this contains the data in the form
-  request.args:     dictionary of URL arguments e.g., {a:1, b:2} for http://localhost?a=1&b=2
-  See its API: http://flask.pocoo.org/docs/0.10/api/#incoming-request-data
-  """
 
   # DEBUG: this is debugging code to see what request looks like
   print(request.args)
-
-
-  #
-  # example of a database query
-  #
-  q1 = text("SELECT *"
-     "FROM Events")
-
-  cursor_q1 = g.conn.execute(q1)
-  events = []
-  for result in cursor_q1:
-    events.append(result)  # can also be accessed using result[0]
-  cursor_q1.close()
-  
-  
-  q2 = text("SELECT * FROM interested_event")
-  cursor_q2 = g.conn.execute(q2)
-  interested_event_id = []
-  for result in cursor_q2:
-    interested_event_id.append(result)
-  cursor_q2.close()
            
-        
-  #
-  # Flask uses Jinja templates, which is an extension to HTML where you can
-  # pass data to a template and dynamically generate HTML based on the data
-  # (you can think of it as simple PHP)
-  # documentation: https://realpython.com/blog/python/primer-on-jinja-templating/
-  #
-  # You can see an example template in templates/index.html
-  #
-  # context are the variables that are passed to the template.
-  # for example, "data" key in the context variable defined below will be 
-  # accessible as a variable in index.html:
-  #
-  #     # will print: [u'grace hopper', u'alan turing', u'ada lovelace']
-  #     <div>{{data}}</div>
-  #     
-  #     # creates a <div> tag for each element in data
-  #     # will print: 
-  #     #
-  #     #   <div>grace hopper</div>
-  #     #   <div>alan turing</div>
-  #     #   <div>ada lovelace</div>
-  #     #
-  #     {% for n in data %}
-  #     <div>{{n}}</div>
-  #     {% endfor %}
-  #
-  context = dict(event_data = events, 
-                 all_tables = engine.table_names(),
-                 id_data = interested_event_id)
+  context = dict(all_tables = engine.table_names())
 
-
-  #
-  # render_template looks in the templates/ folder for files.
-  # for example, the below file reads template/index.html
-  #
   return render_template("index.html", **context)
 
 #赛事信息html
+@app.route('/')
 def event_schedule():
 
   # DEBUG: this is debugging code to see what request looks like
@@ -191,25 +108,10 @@ def event_schedule():
   context = dict(event_data = events, 
                  id_data = interested_event_id)
 
-
-  #
-  # render_template looks in the templates/ folder for files.
-  # for example, the below file reads template/index.html
-  #
   return render_template("event_schedule.html", **context)
 
 
-
-
-
-#
-# This is an example of a different path.  You can see it at
-# 
-#     localhost:8111/another
-#
-# notice that the functio name is another() rather than index()
-# the functions for each app.route needs to have different names
-#
+#创建分页面
 @app.route('/medal_ranking')
 def medal_ranking():
   return render_template("medal_ranking.html")
@@ -223,7 +125,7 @@ def event_schedule():
   return render_template("event_schedule.html")
 
 
-# add new data to the interest_event table 添加喜欢的比赛
+# 添加喜欢的比赛 add new data to the interest_event table
 @app.route('/add', methods=['POST'])
 def add():
   new_id = request.form['id']
@@ -232,7 +134,7 @@ def add():
   g.conn.execute(text(cmd), id = new_id);
   return redirect('/')
 
-# delete input data to the interested_event table 删除喜欢的比赛
+# 删除喜欢的比赛 delete input data to the interested_event table
 @app.route('/delete', methods=['POST'])
 def delete():
   new_id = request.form['id']
