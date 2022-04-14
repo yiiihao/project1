@@ -3,14 +3,9 @@
 """
 Columbia W4111 Intro to databases
 Example webserver
-
 To run locally
-
     python server.py
-
 Go to http://localhost:8111 in your browser
-
-
 A debugger such as "pdb" may be helpful for debugging.
 Read about it online.
 """
@@ -42,7 +37,7 @@ DB_PASSWORD = "4798"
 DB_SERVER = "w4111.cisxo09blonu.us-east-1.rds.amazonaws.com"
 
 DATABASEURI = "postgresql://"+DB_USER+":"+DB_PASSWORD+"@"+DB_SERVER+"/w4111"
-#DATABASEURI = postgresql://yg2820:4798@w4111.cisxo09blonu.us-east-1.rds.amazonaws.com/proj1part2
+
 
 #
 # This line creates a database engine that knows how to connect to the URI above
@@ -52,14 +47,10 @@ engine = create_engine(DATABASEURI)
 
 # Here we create a test table and insert some values in it
 engine.execute("""DROP TABLE IF EXISTS test;""")
-engine.execute("""CREATE TABLE test (
+engine.execute("""CREATE TABLE IF NOT EXISTS test (
   id serial,
   name text
 );""")
-#engine.execute("""CREATE TABLE IF NOT EXISTS test (
-#  id serial,
-#  name text
-#);""")
 engine.execute("""INSERT INTO test(name) VALUES ('grace hopper'), ('alan turing'), ('ada lovelace');""")
 
 
@@ -70,13 +61,12 @@ def before_request():
   This function is run at the beginning of every web request 
   (every time you enter an address in the web browser).
   We use it to setup a database connection that can be used throughout the request
-
   The variable g is globally accessible
   """
   try:
     g.conn = engine.connect()
   except:
-    print("uh oh, problem connecting to database")
+    print "uh oh, problem connecting to database"
     import traceback; traceback.print_exc()
     g.conn = None
 
@@ -109,16 +99,14 @@ def teardown_request(exception):
 def index():
   """
   request is a special object that Flask provides to access web request information:
-
   request.method:   "GET" or "POST"
   request.form:     if the browser submitted a form, this contains the data in the form
   request.args:     dictionary of URL arguments e.g., {a:1, b:2} for http://localhost?a=1&b=2
-
   See its API: http://flask.pocoo.org/docs/0.10/api/#incoming-request-data
   """
 
   # DEBUG: this is debugging code to see what request looks like
-  print(request.args)
+  print request.args
 
 
   #
@@ -142,9 +130,7 @@ def index():
   # for example, "data" key in the context variable defined below will be 
   # accessible as a variable in index.html:
   #
-  #     # will 
-    
-    #: [u'grace hopper', u'alan turing', u'ada lovelace']
+  #     # will print: [u'grace hopper', u'alan turing', u'ada lovelace']
   #     <div>{{data}}</div>
   #     
   #     # creates a <div> tag for each element in data
@@ -184,7 +170,7 @@ def another():
 @app.route('/add', methods=['POST'])
 def add():
   name = request.form['name']
-  print(name)
+  print name
   cmd = 'INSERT INTO test(name) VALUES (:name1), (:name2)';
   g.conn.execute(text(cmd), name1 = name, name2 = name);
   return redirect('/')
@@ -208,17 +194,13 @@ if __name__ == "__main__":
     """
     This function handles command line parameters.
     Run the server using
-
         python server.py
-
     Show the help text using
-
         python server.py --help
-
     """
 
     HOST, PORT = host, port
-    print("running on %s:%d" % (HOST, PORT))
+    print "running on %s:%d" % (HOST, PORT)
     app.run(host=HOST, port=PORT, debug=debug, threaded=threaded)
 
 
