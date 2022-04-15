@@ -115,7 +115,7 @@ def medal_ranking():
 # 互动功能
 # 选择想要的奖牌信息 select information for medals
 @app.route('/action_page.php', methods=['POST'])
-def SubmitButton():
+def submit():
   #request.args
   category = request.form.get('category')
   m_type = request.form.get('type')
