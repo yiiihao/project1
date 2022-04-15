@@ -11,7 +11,7 @@
 <body>
   <h1>Medal Ranking 奖牌榜</h1>
 
-<form class="form-inline" method="POST" action="{{ url_for('test') }}">
+<form class="form-inline" method="POST" action="{{ url_for('medal_ranking') }}">
   <div class="form-group">
     <div class="input-group">
         <span class="input-group-addon">Please select</span>
@@ -48,7 +48,10 @@
   </div>
 </form>
 
- Test 求求
+ Test 求求 <br>
+ raw data
+ <div>{{raw_data}}<div>
+ <br>
  <div>
     {% for n in medal_data %}
     <div>{{n}}</div>
