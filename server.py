@@ -101,7 +101,7 @@ def index():
 def medal_ranking():
 #   # DEBUG: this is debugging code to see what request looks like
 #   print(request.args) 
-  
+
 #   # query all user selected medal information
 #   q1 = text("SELECT * FROM medal_info")
   
@@ -117,22 +117,33 @@ def medal_ranking():
 
 # 互动功能
 # 选择想要的奖牌信息 select information for medals
-@app.route('/input', methods=['POST'])
-def search():
+@app.route('/selection', methods=['POST'])
+def selection():
   #request.args
-  args = request.args.to_dict() #get value
-  input = args.get('result') #get value
-  category = input.split("|")[0]
-  type = input.split("|")[1]
-  country = input.split("|")[2]
+  country = request.form.get("country")
+#   args = request.args.to_dict() #get value
+#   input = args.get('result') #get value
+#   category = input.split("|")[0]
+#   type = input.split("|")[1]
+#   country = input.split("|")[2]
 
-  print(category)
-  print(type)
-  print(country)
+#   print(category)
+#   print(type)
+    print(country)
+    
 #   category = request.form.get('category')
 #   m_type = request.form.get('type')
 #   country = request.form.get('country')
 
+  q = text("SELECT * FROM Athletes WHERE noc = :v1)
+  cursor = g.conn.excecute(q, v1=country)
+  test = []
+  for result in cursor:
+    test.append(result)
+  cursor.close()
+   
+  context = dict(test_data = test)
+             
 #   q1 = text("SELECT medal_type, first_name, last_name, NOC,discipline, category, event_name"
 #             "FROM Medals_of_event_of_athlete a"
 #             "LEFT JOIN Athletes b"
@@ -149,8 +160,8 @@ def search():
            
 #   context = dict(medal_data = medal_info)
   
-  #return render_template("medal_ranking.html", **context)
-  return render_template("medal_ranking.html")
+  return render_template("medal_ranking.html", **context)
+  #return render_template("medal_ranking.html")
   #return redirect('/medal_ranking')
 
 
