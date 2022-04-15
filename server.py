@@ -268,7 +268,11 @@ def event_schedule():
 
   return render_template("event_schedule.html", **context)
 
-
+#创建分页面4 错误
+@app.route('/error')
+def error():
+  return render_template("event_schedule.html", **context)
+    
 # 互动功能
 # 添加喜欢的比赛 add new data to the interest_event table
 @app.route('/add', methods=['POST'])
@@ -297,7 +301,8 @@ def add():
       cmd = 'INSERT INTO interested_event(id) VALUES (:id)';
       g.conn.execute(text(cmd), id = new_id);
   except:
-      pass
+      error_statement = "id already exists or out of range :)"
+      return render_template("error.html", error_statement = error_statement)
   return redirect('/event_schedule')
 
 # 删除喜欢的比赛 delete input data to the interested_event table
