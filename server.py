@@ -95,31 +95,38 @@ def index():
 
 #创建分页面1 奖牌
 @app.route('/medal_ranking')
-def medal_ranking():
-  # DEBUG: this is debugging code to see what request looks like
-  print(request.args)
-    
-  # query all user selected medal information
-  q1 = text("SELECT * FROM medal_info")
+# def medal_ranking():
+#   # DEBUG: this is debugging code to see what request looks like
+#   print(request.args)
   
-  cursor_q1 = g.conn.execute(q1)
-  medal_info = []
-  for result in cursor_q1:
-    medal_info.append(result)  # can also be accessed using result[0]
-  cursor_q1.close()
+#   # query all user selected medal information
+#   q1 = text("SELECT * FROM medal_info")
+  
+#   cursor_q1 = g.conn.execute(q1)
+#   medal_info = []
+#   for result in cursor_q1:
+#     medal_info.append(result)  # can also be accessed using result[0]
+#   cursor_q1.close()
            
-  context = dict(medal_data = medal_info)
+#   context = dict(medal_data = medal_info)
   
-  return render_template("medal_ranking.html", **context)
+#   return render_template("medal_ranking.html", **context)
 
 # 互动功能
 # 选择想要的奖牌信息 select information for medals
-@app.route('/action_page.php', methods=['POST'])
-def submit():
+@app.route('/input', methods=['POST'])
+def query():
   #request.args
-  category = request.form.get('category')
-  m_type = request.form.get('type')
-  country = request.form.get('country')
+  args = request.args.to_dict() #get value
+  input = args.get('result') #get value
+  category = input.split("|")[0]
+  type = input.split("|")[1]
+  country = input.split("|")[2]
+
+    
+#   category = request.form.get('category')
+#   m_type = request.form.get('type')
+#   country = request.form.get('country')
 
   q1 = text("SELECT medal_type, first_name, last_name, NOC,discipline, category, event_name"
             "FROM Medals_of_event_of_athlete a"
@@ -130,12 +137,15 @@ def submit():
             "WHERE NOC in :d1 AND discipline in :d2 AND medal_type in :d3")
     
   cursor_q1 = g.conn.execute(q1,d1=country,d2=category,d3=m_type)
+  medal_info = []
   for result in cursor_q1:
-    cmd = 'INSERT INTO medal_info(medal_type, first_name, last_name, NOC,discipline, category, event_name) VALUES (:data)';
-    g.conn.execute(text(cmd), data = result);
+    medal_info.append(result)
   cursor_q1.close()
+           
+  context = dict(medal_data = medal_info)
   
-  return redirect('/medal_ranking')
+  return render_template("medal_ranking.html", **context)
+  #return redirect('/medal_ranking')
 
 
 #创建分页面2 运动员
