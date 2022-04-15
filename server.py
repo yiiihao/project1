@@ -47,8 +47,13 @@ engine.execute("""CREATE TABLE IF NOT EXISTS interested_event (
 #Here we create a medal_info table for users to view medal information
 engine.execute("""DROP TABLE IF EXISTS medal_info;""")
 engine.execute("""CREATE TABLE IF NOT EXISTS medal_info (
-  id int,
-  primary key (id));""")
+  medal_type varchar, 
+  first_name varchar, 
+  last_name varchar, 
+  NOC varchar,
+  discipline varchar, 
+  category varchar, 
+  event_name varchar);""")
 
 
 @app.before_request
@@ -95,18 +100,15 @@ def medal_ranking():
   print(request.args)
     
   # query all user selected medal information
-  q1 = text("SELECT medal_type FROM Medals_of_event_of_athlete a"
-            "LEFT JOIN Athletes b"
-            "ON a.id = b.id"
-            "WHERE NOC in country AND discipline in discipline AND medal_type in type")
-    
+  q1 = text("SELECT * FROM medal_info")
+  
   cursor_q1 = g.conn.execute(q1)
-  medal = []
-  for result in cursor_q2:
-    medal.append(result)
+  medal_info = []
+  for result in cursor_q1:
+    medal_info.append(result)  # can also be accessed using result[0]
   cursor_q1.close()
            
-  context = dict(medal_data = medal)
+  context = dict(medal_data = medal_info)
   
   return render_template("medal_ranking.html", **context)
 
@@ -116,17 +118,20 @@ def medal_ranking():
 def select():
   #request.args
   category = request.form['category']
-  discipline = request.form['type']
+  m_type = request.form['type']
   country = request.form['country']
 
-  q1 = text("SELECT medal_type FROM Medals_of_event_of_athlete a"
+  q1 = text("SELECT medal_type, first_name, last_name, NOC,discipline, category, event_name"
+            "FROM Medals_of_event_of_athlete a"
             "LEFT JOIN Athletes b"
-            "ON a.id = b.id"
-            "WHERE NOC in country AND discipline in discipline AND medal_type in type")
+            "ON a.athlete_id = b.athlete_id"
+            "LEFT JOIN Events c"
+            "ON a.event_id = c.event_id"
+            "WHERE NOC in :d1 AND discipline in :d2 AND medal_type in :d3")
     
-  cursor_q1 = g.conn.execute(q1)
+  cursor_q1 = g.conn.execute(q1,d1=country,d2=category,d3=m_type)
   for result in cursor_q1:
-    cmd = 'INSERT INTO interested_event(id) VALUES (:data)';
+    cmd = 'INSERT INTO medal_info(medal_type, first_name, last_name, NOC,discipline, category, event_name) VALUES (:data)';
     g.conn.execute(text(cmd), data = result);
   cursor_q1.close()
   
