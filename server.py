@@ -175,13 +175,50 @@ def athlete_information():
 
 
 # 查找喜欢的运动员 find information about athletes interested
-@app.route('/find', methods=['POST'])
-def find():
+@app.route('/find1', methods=['POST'])
+def find1():
     
   name = request.form['name']
   first_name, last_name = name.split()
   print(first_name, last_name)
   cmd = "SELECT concat(first_name, ' ', last_name) Athlete, nickname Nickname, gender Gender, noc Country, birthday Birthday, age Age FROM Athletes WHERE first_name = :v1 AND last_name = :v2";
+  cursor_q2 = g.conn.execute(text(cmd), v1 = first_name,v2=last_name)
+  data = []
+  for result in cursor_q2:
+    print(result)
+    data.append(result)  # can also be accessed using result[0]
+  cursor_q2.close()
+
+
+  # query all athlete names 选出所有的运动员名字
+  q1 = text("SELECT concat(first_name, ' ', last_name)"
+     "FROM Athletes")
+
+  cursor_q1 = g.conn.execute(q1)
+  athlete = []
+  for result in cursor_q1:
+    athlete.append(result)  # can also be accessed using result[0]
+  cursor_q1.close()
+  
+  context = dict(athlete_name = athlete, athlete_data = data1, event_data = data2)
+  
+  return render_template("athlete_information.html", **context)
+  #return redirect('/event_schedule')
+
+@app.route('/find2', methods=['POST'])
+def find2():
+    
+  name = request.form['name']
+  first_name, last_name = name.split()
+  print(first_name, last_name)
+  cmd = "SELECT concat(first_name, ' ', last_name) Athlete, NOC Country, discipline Discipline, category Category, event_name Event Name, location Location, day Event Day, start_time Event Start Time"
+        "FROM Events a"
+        "LEFT JOIN Participate b"
+        "ON a.event_id = b.event_id"
+        "LEFT JOIN Athletes c"
+        "ON b.athlete_id = c.athlete_id"
+        "WHERE first_name = :v1 AND last_name = :v2"
+
   cursor_q2 = g.conn.execute(text(cmd), v1 = first_name,v2=last_name)
   data = []
   for result in cursor_q2:
@@ -199,7 +236,7 @@ def find():
     athlete.append(result)  # can also be accessed using result[0]
   cursor_q1.close()
   
-  context = dict(athlete_name = athlete, athlete_data = data)
+  context = dict(athlete_name = athlete, athlete_data = data1, event_data = data2)
   
   return render_template("athlete_information.html", **context)
   #return redirect('/event_schedule')
