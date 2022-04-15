@@ -200,7 +200,9 @@ def find():
   first_name, last_name = name.split()
   print(first_name, last_name)
 
-  cmd2 = "SELECT concat(first_name, ' ', last_name) Athlete, nickname, gender, noc Country, birthday, age Age FROM Athletes WHERE first_name = :v1 AND last_name = :v2";
+  cmd2 = text("SELECT b.first_name, b.last_name, nickname, b.gender, b.noc, birthday, age, c.first_name, c.last_name "
+              "FROM Athletes b LEFT JOIN Instruct a ON a.athlete_id = b.athlete_id LEFT JOIN Coaches c ON a.coach_id = c.coach_id "
+              "WHERE b.first_name = :v1 AND b.last_name = :v2")
   cursor_q2 = g.conn.execute(text(cmd2), v1 = first_name,v2=last_name)
   data2 = []
   for result in cursor_q2:
@@ -208,9 +210,13 @@ def find():
     data2.append(result)  # can also be accessed using result[0]
   cursor_q2.close()
 
-  cmd1 = text("SELECT b.first_name, b.last_name, nickname, b.gender, b.noc, birthday, age, c.first_name, c.last_name "
-              "FROM Athletes b LEFT JOIN Instruct a ON a.athlete_id = b.athlete_id LEFT JOIN Coaches c ON a.coach_id = c.coach_id "
-              "WHERE b.first_name = :v1 AND b.last_name = :v2")
+  cmd1 = text("SELECT concat(first_name, ' ', last_name) Athlete, NOC Country, discipline,category, event_name Event_Name, location, day Event_Day, start_time " 
+              "FROM Events a " 
+              "LEFT JOIN Participate b "
+              "ON a.event_id = b.event_id " 
+              "LEFT JOIN Athletes c " 
+              "ON b.athlete_id = c.athlete_id " 
+              "WHERE first_name = :v1 AND last_name = :v2")
 
   cursor_q1 = g.conn.execute(cmd1, v1 = first_name,v2=last_name)
   data1 = []
