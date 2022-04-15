@@ -123,28 +123,31 @@ def search():
   type = input.split("|")[1]
   country = input.split("|")[2]
 
-    
+  print(category)
+  print(type)
+  print(country)
 #   category = request.form.get('category')
 #   m_type = request.form.get('type')
 #   country = request.form.get('country')
 
-  q1 = text("SELECT medal_type, first_name, last_name, NOC,discipline, category, event_name"
-            "FROM Medals_of_event_of_athlete a"
-            "LEFT JOIN Athletes b"
-            "ON a.athlete_id = b.athlete_id"
-            "LEFT JOIN Events c"
-            "ON a.event_id = c.event_id"
-            "WHERE NOC in :d1 AND discipline in :d2 AND medal_type in :d3")
+#   q1 = text("SELECT medal_type, first_name, last_name, NOC,discipline, category, event_name"
+#             "FROM Medals_of_event_of_athlete a"
+#             "LEFT JOIN Athletes b"
+#             "ON a.athlete_id = b.athlete_id"
+#             "LEFT JOIN Events c"
+#             "ON a.event_id = c.event_id"
+#             "WHERE NOC in :d1 AND discipline in :d2 AND medal_type in :d3")
     
-  cursor_q1 = g.conn.execute(q1,d1=country,d2=category,d3=m_type)
-  medal_info = []
-  for result in cursor_q1:
-    medal_info.append(result)
-  cursor_q1.close()
+#   cursor_q1 = g.conn.execute(q1,d1=country,d2=category,d3=m_type)
+#   medal_info = []
+#   for result in cursor_q1:
+#     medal_info.append(result)
+#   cursor_q1.close()
            
-  context = dict(medal_data = medal_info)
+#   context = dict(medal_data = medal_info)
   
-  return render_template("medal_ranking.html", **context)
+  #return render_template("medal_ranking.html", **context)
+  return render_template("medal_ranking.html")
   #return redirect('/medal_ranking')
 
 
