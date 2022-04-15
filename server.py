@@ -40,7 +40,8 @@ engine = create_engine(DATABASEURI)
 engine.execute("""DROP TABLE IF EXISTS interested_event;""")
 engine.execute("""CREATE TABLE IF NOT EXISTS interested_event (
   id int,
-  primary key (id));""")
+  primary key (id),
+  foreign key (id) references Events(event_id));""")
 #engine.execute("""INSERT INTO interested_event(id) VALUES (1), (5);""")
 
 # 奖牌表
