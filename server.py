@@ -141,7 +141,20 @@ def submit():
 #创建分页面2 运动员
 @app.route('/athlete_information')
 def athlete_information():
-  return render_template("athlete_information.html")
+    
+  # query all athlete names
+  q1 = text("SELECT concat(first_name, ' ', last_name)"
+     "FROM Athlete")
+
+  cursor_q1 = g.conn.execute(q1)
+  athlete = []
+  for result in cursor_q1:
+    athlete.append(result)  # can also be accessed using result[0]
+  cursor_q1.close()
+
+  context = dict(athlete_name = athlete)
+
+  return render_template("athlete_information.html", **context)
 
 
 
