@@ -318,7 +318,7 @@ def delete():
   except:
       error_statement = "Error: id does not exist in the table!"
       return render_template("error.html", error_statement = error_statement)
- return redirect('/event_schedule')
+  return redirect('/event_schedule')
 
 
 @app.route('/login')
