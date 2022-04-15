@@ -196,7 +196,7 @@ def find():
   for result in cursor_q2:
     print(result)
     data.append(result)  # can also be accessed using result[0]
-  cursor_q1.close()
+  cursor_q2.close()
   
   context = dict(athlete_name = athlete, athlete_data = data)
   
