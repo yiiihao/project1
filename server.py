@@ -238,7 +238,7 @@ def add():
       g.conn.execute(text(cmd), id = new_id);
   except:
       pass
-  return render_template('event_schedule', error=error)
+  return redirect('/event_schedule')
 
 # 删除喜欢的比赛 delete input data to the interested_event table
 @app.route('/delete', methods=['POST'])
