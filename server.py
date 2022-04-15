@@ -115,11 +115,11 @@ def medal_ranking():
 # 互动功能
 # 选择想要的奖牌信息 select information for medals
 @app.route('/action_page.php', methods=['POST'])
-def select():
+def SubmitButton():
   #request.args
-  category = request.form['category']
-  m_type = request.form['type']
-  country = request.form['country']
+  category = request.form.get('category')
+  m_type = request.form.get('type')
+  country = request.form.get('country')
 
   q1 = text("SELECT medal_type, first_name, last_name, NOC,discipline, category, event_name"
             "FROM Medals_of_event_of_athlete a"
