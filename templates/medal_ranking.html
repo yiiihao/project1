@@ -11,20 +11,16 @@
 <body>
   <h1>Medal Ranking 奖牌榜</h1>
  
-<form action = "/selection" method='POST'></form>
- 
-<label for="category">Choose category:</label>
-  
-<select id="category" name="category">
-  <option value="all">ALL</option>
-  <option value="Figure Skating">Figure Skating</option>
-  <option value="Freestyle Skiing">Freestyle Skiing</option>
-  <option value="Snowboard">Snowboard</option>
-</select>
- 
-<br>
- 
-<input type="button" value="Submit" name="Submit"/>
+<form action="/action_page.php">
+  <label for="cars">Choose a car:</label>
+  <select name="cars" id="cars">
+    <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option>
+    <option value="opel">Opel</option>
+    <option value="audi">Audi</option>
+  </select>
+  <br><br>
+  <input type="submit" value="Submit">
 </form>
 
 <div>{{test_data}}</div>
