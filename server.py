@@ -196,7 +196,7 @@ def find():
               "ON a.event_id = b.event_id " 
               "LEFT JOIN Athletes c " 
               "ON b.athlete_id = c.athlete_id " 
-              "WHERE first_name = :v1 AND last_name = v2")
+              "WHERE first_name = :v1 AND last_name = :v2")
 
   cursor_q1 = g.conn.execute(cmd1, v1 = first_name,v2=last_name)
   data1 = []
