@@ -99,7 +99,7 @@ def view():
   cmd = "SELECT * FROM Medals_of_event_of_athlete"
   cursor = g.conn.execute(text(cmd))
   data = []
-  for result in cursor_q2:
+  for result in cursor:
     #print(result)
     data.append(result)  # can also be accessed using result[0]
   cursor.close()
