@@ -203,7 +203,7 @@ def find():
   cmd2 = text("SELECT b.first_name, b.last_name, nickname, b.gender, b.noc, birthday, age, c.first_name, c.last_name "
               "FROM Athletes b LEFT JOIN Instruct a ON a.athlete_id = b.athlete_id LEFT JOIN Coaches c ON a.coach_id = c.coach_id "
               "WHERE b.first_name = :v1 AND b.last_name = :v2")
-  cursor_q2 = g.conn.execute(text(cmd2), v1 = first_name,v2=last_name)
+  cursor_q2 = g.conn.execute(cmd2, v1 = first_name, v2=last_name)
   data2 = []
   for result in cursor_q2:
     #print(result)
