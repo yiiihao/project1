@@ -103,15 +103,16 @@ def test():
     
     if category == "ALL":
         category = ["Figure Skating", "Freestyle Skiing", "Snowboard"]
-    q0 = text("SELECT medal_type, concat(first_name, ' ', last_name), noc, discipline,category,event_name"
-            "FROM Medals_of_event_of_athlete a"
-            "LEFT JOIN Athletes b"
-            "ON a.athlete_id = b.athlete_id"
-            "LEFT JOIN Events c"
-            "ON a.event_id = c.event_id"
-            "WHERE NOC in :v1 AND discipline in :v2 AND medal_type in :v3")
-    
-    cursor_q0 = g.conn.execute(q0,v1=category,v2=medal_type,v3=country)
+#     q0 = text("SELECT medal_type, concat(first_name, ' ', last_name), noc, discipline,category,event_name"
+#             "FROM Medals_of_event_of_athlete a"
+#             "LEFT JOIN Athletes b"
+#             "ON a.athlete_id = b.athlete_id"
+#             "LEFT JOIN Events c"
+#             "ON a.event_id = c.event_id"
+#             "WHERE NOC in :v1 AND discipline in :v2 AND medal_type in :v3")
+    q0 = text("SELECT * FROM Athletes WHERE noc=:v1")
+    #cursor_q0 = g.conn.execute(q0,v1=category,v2=medal_type,v3=country)
+    cursor_q0 = g.conn.execute(q0,v1=country)
     medal_info = []
     for result in cursor_q0:
       medal_info.append(result)  # can also be accessed using result[0]
