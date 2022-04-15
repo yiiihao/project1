@@ -46,19 +46,6 @@ engine.execute("""CREATE TABLE IF NOT EXISTS interested_event (
 
 
 
-# 奖牌表
-#Here we create a medal_info table for users to view medal information
-engine.execute("""DROP TABLE IF EXISTS medal_info;""")
-engine.execute("""CREATE TABLE IF NOT EXISTS medal_info (
-  medal_type varchar, 
-  first_name varchar, 
-  last_name varchar, 
-  NOC varchar,
-  discipline varchar, 
-  category varchar, 
-  event_name varchar);""")
-
-
 @app.before_request
 def before_request():
   """
@@ -92,7 +79,7 @@ def teardown_request(exception):
 def index():
 
   # DEBUG: this is debugging code to see what request looks like
-  print(request.args)
+  # print(request.args)
           
   return render_template("index.html")
 
@@ -101,73 +88,20 @@ def index():
 def medal_ranking():
 #   # DEBUG: this is debugging code to see what request looks like
 #   print(request.args) 
-
-#   # query all user selected medal information
-#   q1 = text("SELECT * FROM medal_info")
-  
-#   cursor_q1 = g.conn.execute(q1)
-#   medal_info = []
-#   for result in cursor_q1:
-#     medal_info.append(result)  # can also be accessed using result[0]
-#   cursor_q1.close()
-           
-#   context = dict(medal_data = medal_info)
   
     return render_template("medal_ranking.html")
 
 # 互动功能
 # 选择想要的奖牌信息 select information for medals
-@app.route('/action_page.php', methods=['POST'])
+@app.route('/select', methods=['POST'])
 def selection():
 
-  #request.args
-  #country = request.args.get("country")
-  result = request.form
-  #c = request.form.get("cars")
-  print(result)
-
-#   args = request.args.to_dict() #get value
-#   input = args.get('result') #get value
-#   category = input.split("|")[0]
-#   type = input.split("|")[1]
-#   country = input.split("|")[2]
-
-#   print(category)
-#   print(type)
-
-    
-#   category = request.form.get('category')
-#   m_type = request.form.get('type')
-#   country = request.form.get('country')
-
-#   q = text("SELECT * FROM Athletes WHERE noc = :v1")
-#   cursor = g.conn.excecute(q, v1=country)
-#   test = []
-#   for result in cursor:
-#     test.append(result)
-#   cursor.close()
+  c = request.form["cars"]
+  print(c)
    
-  context = dict(test_data = result)
-             
-#   q1 = text("SELECT medal_type, first_name, last_name, NOC,discipline, category, event_name"
-#             "FROM Medals_of_event_of_athlete a"
-#             "LEFT JOIN Athletes b"
-#             "ON a.athlete_id = b.athlete_id"
-#             "LEFT JOIN Events c"
-#             "ON a.event_id = c.event_id"
-#             "WHERE NOC in :d1 AND discipline in :d2 AND medal_type in :d3")
-    
-#   cursor_q1 = g.conn.execute(q1,d1=country,d2=category,d3=m_type)
-#   medal_info = []
-#   for result in cursor_q1:
-#     medal_info.append(result)
-#   cursor_q1.close()
-           
-#   context = dict(medal_data = medal_info)
+  context = dict(test_data = c)           
   
   return render_template("medal_ranking.html", **context)
-  #return render_template("medal_ranking.html")
-  #return redirect('/medal_ranking')
 
 
 #创建分页面2 运动员
