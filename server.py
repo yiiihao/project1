@@ -101,9 +101,9 @@ def test():
     v2 = request.form.get('type')
     v3 = request.form.get('country')
     
-    category = v1
-    medal_type = v2
-    country = v3
+    category = [v1]
+    medal_type = [v2]
+    country = [v3]
     
     if v1 == "ALL":
         category = ["Figure Skating", "Freestyle Skiing", "Snowboard"]
