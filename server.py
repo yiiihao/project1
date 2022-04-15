@@ -97,9 +97,26 @@ def medal_ranking():
 
 @app.route("/test" , methods=['GET', 'POST'])
 def test():
-    select1 = request.form.get('category')
-    select2 = request.form.get('type')
-    context = dict(test_data = [select1,select2])           
+    category = request.form.get('category')
+    medal_type = request.form.get('type')
+    country = request.form.get('country')
+    
+    q0 = text("SELECT medal_type, concat(first_name, ' ', last_name), noc, discipline,category,event_name"
+            "FROM Medals_of_event_of_athlete a"
+            "LEFT JOIN Athletes b"
+            "ON a.athlete_id = b.athlete_id"
+            "LEFT JOIN Events c"
+            "ON a.event_id = c.event_id"
+            "WHERE NOC in :v1 AND discipline in :v2 AND medal_type in :v3")
+    
+    cursor_q0 = g.conn.execute(q0)
+    medal_info = []
+    for result in cursor_q0:
+      medal_info.append(result)  # can also be accessed using result[0]
+    cursor_q0.close()
+    
+    context = dict(medal_data = medal_info)
+
     return render_template("medal_ranking.html", **context)
 
 # @app.route('/select', methods=['POST','GET'])
