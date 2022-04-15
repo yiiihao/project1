@@ -130,7 +130,7 @@ def test():
             "ON a.athlete_id = b.athlete_id "
             "LEFT JOIN Events c "
             "ON a.event_id = c.event_id "
-            "WHERE NOC = :d1 AND discipline = :d2 AND medal_type = :d3")
+            "WHERE NOC = :d3 AND discipline = :d1 AND medal_type = :d2")
     
     if v1 == "ALL" and v2 == "ALL" and v3 == "ALL":
         q0 = text("SELECT medal_type, concat(first_name, ' ', last_name), noc, discipline,category,event_name FROM Medals_of_event_of_athlete a "
