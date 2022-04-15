@@ -71,22 +71,6 @@
     country = $('#country').val().toString();
     update(category + "| " + type + "|" + country);
   }
- 
-function update(val){
-      $.ajax({
-          type: "GET",
-          url: "http://127.0.0.1:5000/search",
-          dataType: "json",
-          data: {result: val},
-          async: false,
-          success: function(result){
-              /*这个方法里是ajax发送请求成功之后执行的代码*/
-              showData(result);//我们仅做数据展示
-          },
-          error: function(msg){
-              alert("ajax连接异常："+msg);
-          }
-      });
 
 
 </body>
