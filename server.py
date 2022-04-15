@@ -144,7 +144,7 @@ def athlete_information():
     
   # query all athlete names
   q1 = text("SELECT concat(first_name, ' ', last_name)"
-     "FROM Athlete")
+     "FROM Athletes")
 
   cursor_q1 = g.conn.execute(q1)
   athlete = []
