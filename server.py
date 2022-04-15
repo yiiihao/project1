@@ -84,41 +84,48 @@ def index():
   return render_template("index.html")
 
 #创建分页面1 奖牌
-@app.route('/medal_ranking')
-def medal_ranking():
-#   # DEBUG: this is debugging code to see what request looks like
-#   print(request.args) 
+# @app.route('/medal_ranking')
+# def medal_ranking():
+# #   # DEBUG: this is debugging code to see what request looks like
+# #   print(request.args) 
   
-    return render_template("medal_ranking.html")
+#     return render_template("medal_ranking.html")
 
-# 互动功能
-# 选择想要的奖牌信息 select information for medals
+# # 互动功能
+# # 选择想要的奖牌信息 select information for medals
 
 
-@app.route("/test" , methods=['GET', 'POST'])
+@app.route("/medal_ranking" , methods=['GET', 'POST'])
 def test():
-    category = request.form.get('category')
-    medal_type = request.form.get('type')
-    country = request.form.get('country')
+    v1 = request.form.get('category')
+    v2 = request.form.get('type')
+    v3 = request.form.get('country')
     
-    if category == "ALL":
+    category = v1
+    medal_type = v2
+    country = v3
+    
+    if v1 == "ALL":
         category = ["Figure Skating", "Freestyle Skiing", "Snowboard"]
-#     q0 = text("SELECT medal_type, concat(first_name, ' ', last_name), noc, discipline,category,event_name"
-#             "FROM Medals_of_event_of_athlete a"
-#             "LEFT JOIN Athletes b"
-#             "ON a.athlete_id = b.athlete_id"
-#             "LEFT JOIN Events c"
-#             "ON a.event_id = c.event_id"
-#             "WHERE NOC in :v1 AND discipline in :v2 AND medal_type in :v3")
-    q0 = text("SELECT * FROM Athletes WHERE noc=:v1")
-    #cursor_q0 = g.conn.execute(q0,v1=category,v2=medal_type,v3=country)
-    cursor_q0 = g.conn.execute(q0,v1=country)
+    elif v2 == "ALL":
+        medal_type = ["gold", "silver", "bronze"]
+    elif v3 == "ALL":
+        country = ["France,ROC","Belgium,People's Republic of China","Canada","Estonia","Japan","United States of America","Switzerland","Norway"]
+    q0 = text("SELECT medal_type, concat(first_name, ' ', last_name), noc, discipline,category,event_name "
+            "FROM Medals_of_event_of_athlete a "
+            "LEFT JOIN Athletes b "
+            "ON a.athlete_id = b.athlete_id "
+            "LEFT JOIN Events c "
+            "ON a.event_id = c.event_id "
+            "WHERE NOC in :v1 AND discipline in :v2 AND medal_type in :v3")
+    
+    cursor_q0 = g.conn.execute(q0,v1=category,v2=medal_type,v3=country)
     medal_info = []
     for result in cursor_q0:
       medal_info.append(result)  # can also be accessed using result[0]
     cursor_q0.close()
     
-    context = dict(medal_data = medal_info)
+    context = dict(medal_data = medal_info, raw_data = [v1,v2,v3])
 
     return render_template("medal_ranking.html", **context)
 
