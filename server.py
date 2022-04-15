@@ -117,9 +117,9 @@ def test():
             "ON a.athlete_id = b.athlete_id "
             "LEFT JOIN Events c "
             "ON a.event_id = c.event_id "
-            "WHERE NOC in :v1 AND discipline in :v2 AND medal_type in :v3")
+            "WHERE NOC in :d1 AND discipline in :d2 AND medal_type in :d3")
     
-    cursor_q0 = g.conn.execute(q0,v1=category,v2=medal_type,v3=country)
+    cursor_q0 = g.conn.execute(q0,d1=country,d2=category,d3=medal_type)
     medal_info = []
     for result in cursor_q0:
       medal_info.append(result)  # can also be accessed using result[0]
