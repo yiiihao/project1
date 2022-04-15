@@ -100,7 +100,7 @@ def view():
 
   cmd = text("select noc, max(case when medal_type = 'gold' then num_medal else 0 end) as gold, max(case when medal_type = 'silver' then num_medal else 0 end) as silver, max(case when medal_type = 'bronze' then num_medal else 0 end) as bronze "
              "from (SELECT noc, medal_type, count(medal_type) AS num_medal FROM Medals_of_event_of_athlete a LEFT JOIN Athletes b ON a.athlete_id = b.athlete_id "
-             "GROUP BY noc, medal_type) temp group by noc ORDER BY gold DESC")
+             "GROUP BY noc, medal_type) temp group by noc ORDER BY gold DESC, silver DESC")
     
   cursor = g.conn.execute(cmd)
   data = []
