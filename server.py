@@ -44,6 +44,8 @@ engine.execute("""CREATE TABLE IF NOT EXISTS interested_event (
   foreign key (id) references Events(event_id));""")
 #engine.execute("""INSERT INTO interested_event(id) VALUES (1), (5);""")
 
+
+
 # 奖牌表
 #Here we create a medal_info table for users to view medal information
 engine.execute("""DROP TABLE IF EXISTS medal_info;""")
@@ -156,7 +158,7 @@ def search():
 @app.route('/athlete_information')
 def athlete_information():
     
-  # query all athlete names
+  # query all athlete names 选出所有的运动员名字
   q1 = text("SELECT concat(first_name, ' ', last_name)"
      "FROM Athletes")
 
@@ -175,9 +177,10 @@ def athlete_information():
 # 查找喜欢的运动员 find information about athletes interested
 @app.route('/find', methods=['POST'])
 def find():
+  
   name = request.form['name']
   first_name, last_name = name.split()
-    
+  print(first_name, last_name)
   cmd = "SELECT concat(first_name, ' ', last_name) Athlete, nickname Nickname, gender Gender, noc Country, birthday Birthday, age Age FROM Athletes WHERE first_name = :v1 AND last_name = :v2";
   cursor_q1 = g.conn.execute(text(cmd), v1 = first_name,v2=last_name)
   athlete = []
@@ -187,8 +190,8 @@ def find():
   
   context = dict(athlete_data=athlete)
   
-  #return render_template("athlete_information.html", **context)
-  return redirect('/event_schedule')
+  return render_template("athlete_information.html", **context)
+  #return redirect('/event_schedule')
 
 
 
