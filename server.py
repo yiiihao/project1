@@ -121,9 +121,9 @@ def medal_ranking():
 def selection():
 
   #request.args
-  country = request.args.get("country")
-  #country = request.form.get("country")
-  print(country)
+  #country = request.args.get("country")
+  category = request.form.get("category")
+  print(category)
 
 #   args = request.args.to_dict() #get value
 #   input = args.get('result') #get value
@@ -146,7 +146,7 @@ def selection():
 #     test.append(result)
 #   cursor.close()
    
-  context = dict(test_data = country)
+  context = dict(test_data = category)
              
 #   q1 = text("SELECT medal_type, first_name, last_name, NOC,discipline, category, event_name"
 #             "FROM Medals_of_event_of_athlete a"
