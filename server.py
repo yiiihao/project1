@@ -138,7 +138,7 @@ def selection():
 #   m_type = request.form.get('type')
 #   country = request.form.get('country')
 
-  q = text("SELECT * FROM Athletes WHERE noc = :v1)
+  q = text("SELECT * FROM Athletes WHERE noc = :v1")
   cursor = g.conn.excecute(q, v1=country)
   test = []
   for result in cursor:
