@@ -318,11 +318,11 @@ def delete():
   new_id = request.form['id']
   print(new_id)
   try:
-    cmd = 'DELETE FROM interested_event WHERE id=(:id)';
-    g.conn.execute(text(cmd), id = new_id);
+      cmd = 'DELETE FROM interested_event WHERE id=(:id)';
+      g.conn.execute(text(cmd), id = new_id);
   except:
-    error_statement = "Error: id does not exist in the table!"
-    return render_template("error.html", error_statement = error_statement)
+      error_statement = "Error: id does not exist in the table!"
+      return render_template("error.html", error_statement = error_statement)
   return redirect('/event_schedule')
 
 
