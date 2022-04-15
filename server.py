@@ -98,7 +98,8 @@ def medal_ranking():
 @app.route("/test" , methods=['GET', 'POST'])
 def test():
     select = request.form.get('comp_select')
-    return(str(select)) # just to see what select is
+    context = dict(test_data = select)           
+    return render_template("medal_ranking.html", **context)
 
 # @app.route('/select', methods=['POST','GET'])
 # def selection():
