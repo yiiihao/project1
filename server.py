@@ -311,29 +311,14 @@ def add():
 def delete():
   new_id = request.form['id']
   print(new_id)
-    
-  query = 'SELECT * FROM interested_event'
-  cursor = g.conn.execute(text(query))
-  exists_id = []
-  for result in cursor:
-    exists_id.append(result[0])
-  cursor.close()
-  print(exists_id)
-  if new_id not in exists_id:
-    error_statement = "Error: id does not exist in the table!"
-    return render_template("error.html", error_statement = error_statement)
-  else:
-    cmd = 'DELETE FROM interested_event WHERE id=(:id)';
-    g.conn.execute(text(cmd), id = new_id);
-  return redirect('/event_schedule')
         
-#   try:
-#       cmd = 'DELETE FROM interested_event WHERE id=(:id)';
-#       g.conn.execute(text(cmd), id = new_id);
-#   except:
-#       error_statement = "Error: id does not exist in the table!"
-#       return render_template("error.html", error_statement = error_statement)
-#  return redirect('/event_schedule')
+  try:
+      cmd = 'DELETE FROM interested_event WHERE id=(:id)';
+      g.conn.execute(text(cmd), id = new_id);
+  except:
+      error_statement = "Error: id does not exist in the table!"
+      return render_template("error.html", error_statement = error_statement)
+ return redirect('/event_schedule')
 
 
 @app.route('/login')
