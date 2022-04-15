@@ -12,6 +12,19 @@
   <h1>Medal Ranking 奖牌榜</h1>
 
 <p><a href="/">Back to main page</a></p> <br>
+ 
+
+<form method="POST" action="/view">
+<p>View Complete Medal Ranking: <input type="submit" value="View"></p>
+</form>
+ 
+ <br>
+ <div>
+    {% for n in view_data %}
+    <div>{{n}}</div>
+    {% endfor %}
+  </div>
+<br>
 <form class="form-inline" method="POST" action="{{ url_for('medal_ranking') }}">
   <div class="form-group">
     <div class="input-group">
