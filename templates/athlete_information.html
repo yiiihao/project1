@@ -14,10 +14,9 @@
   <div>{{athlete_name}}</div>
 <br>
   
-Find information of athletes
-<form method="POST" action="/find">
-<p>Name of the athlete: <input type="text" name="name"> <p>
-<p><input type="submit" value="Get Athlete Information"><input type="submit" value="Get Event Information"></p>
+Find athlete information <br>
+<form method="POST" action="/find1">
+<p>Name of the athlete: <input type="text" name="name"><input type="submit" value="Get Athlete Information"></p>
 </form>
 
 <div>
@@ -25,7 +24,13 @@ Find information of athletes
     <div>{{n}}</div>
     {% endfor %}
 </div>  
-
+  
+  
+Find event information of athlete <br>
+<form method="POST" action="/find2">
+<p>Name of the athlete: <input type="text" name="name"><input type="submit" value="Get Event Information"></p>
+</form>
+  
 <div>
     {% for n in event_data %}
     <div>{{n}}</div>
