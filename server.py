@@ -117,7 +117,7 @@ def test():
             "ON a.athlete_id = b.athlete_id "
             "LEFT JOIN Events c "
             "ON a.event_id = c.event_id "
-            "WHERE NOC any(:d1) AND discipline any(:d2) AND medal_type any(:d3)")
+            "WHERE NOC = any(:d1) AND discipline = any(:d2) AND medal_type = any(:d3)")
     
     cursor_q0 = g.conn.execute(q0,d1=country,d2=category,d3=medal_type)
     medal_info = []
