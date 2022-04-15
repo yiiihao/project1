@@ -151,9 +151,7 @@ def find():
   name = request.form['name']
   first_name, last_name = name.split()
     
-  cmd = "SELECT concat(first_name, ' ', last_name) Athlete, nickname Nickname, gender Gender, noc Country, birthday Birthday, age Age"
-        "FROM Athletes"
-        "WHERE first_name = :v1 AND last_name = :v2";
+  cmd = "SELECT concat(first_name, ' ', last_name) Athlete, nickname Nickname, gender Gender, noc Country, birthday Birthday, age Age FROM Athletes WHERE first_name = :v1 AND last_name = :v2";
   cursor_q1 = g.conn.execute(text(cmd), v1 = first_name,v2=last_name)
   athlete = []
   for result in cursor_q1:
