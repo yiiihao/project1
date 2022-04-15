@@ -93,7 +93,7 @@ def medal_ranking():
 
 # 互动功能
 # 选择想要的奖牌信息 select information for medals
-@app.route('/select', methods=['POST'])
+@app.route('/select', methods=['POST'，'GET'])
 def selection():
 
   c = request.form["cars"]
