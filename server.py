@@ -119,7 +119,7 @@ def medal_ranking():
 # 选择想要的奖牌信息 select information for medals
 @app.route('/selection', methods=['POST'])
 def selection():
-    
+
   #request.args
   country = request.form["country"]
   print(country)
@@ -138,14 +138,14 @@ def selection():
 #   m_type = request.form.get('type')
 #   country = request.form.get('country')
 
-  q = text("SELECT * FROM Athletes WHERE noc = :v1")
-  cursor = g.conn.excecute(q, v1=country)
-  test = []
-  for result in cursor:
-    test.append(result)
-  cursor.close()
+#   q = text("SELECT * FROM Athletes WHERE noc = :v1")
+#   cursor = g.conn.excecute(q, v1=country)
+#   test = []
+#   for result in cursor:
+#     test.append(result)
+#   cursor.close()
    
-  context = dict(test_data = test)
+  context = dict(test_data = country)
              
 #   q1 = text("SELECT medal_type, first_name, last_name, NOC,discipline, category, event_name"
 #             "FROM Medals_of_event_of_athlete a"
