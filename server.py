@@ -121,7 +121,7 @@ def medal_ranking():
 def selection():
 
   #request.args
-  country = request.form["country"]
+  country = request.form.get("country")
   print(country)
 
 #   args = request.args.to_dict() #get value
