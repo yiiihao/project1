@@ -114,6 +114,7 @@ def medal_ranking():
 # 选择想要的奖牌信息 select information for medals
 @app.route('/action_page.php', methods=['POST'])
 def select():
+  #request.args
   category = request.form['category']
   discipline = request.form['type']
   country = request.form['country']
@@ -129,7 +130,7 @@ def select():
     g.conn.execute(text(cmd), data = result);
   cursor_q1.close()
   
-  return redirect('/event_schedule')
+  return redirect('/medal_ranking')
 
 
 #创建分页面2 运动员
