@@ -119,8 +119,11 @@ def medal_ranking():
 # 选择想要的奖牌信息 select information for medals
 @app.route('/selection', methods=['POST'])
 def selection():
+    
   #request.args
   country = request.form.get("country")
+  print(country)
+
 #   args = request.args.to_dict() #get value
 #   input = args.get('result') #get value
 #   category = input.split("|")[0]
@@ -129,7 +132,7 @@ def selection():
 
 #   print(category)
 #   print(type)
-    print(country)
+
     
 #   category = request.form.get('category')
 #   m_type = request.form.get('type')
