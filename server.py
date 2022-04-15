@@ -111,15 +111,15 @@ def test():
         medal_type = {"gold", "silver", "bronze"}
     elif v3 == "ALL":
         country = {"France,ROC","Belgium,People's Republic of China","Canada","Estonia","Japan","United States of America","Switzerland","Norway"}
-    q0 = text("SELECT medal_type, concat(first_name, ' ', last_name), noc, discipline,category,event_name "
+    q00 = text("SELECT medal_type, concat(first_name, ' ', last_name), noc, discipline,category,event_name "
             "FROM Medals_of_event_of_athlete a "
             "LEFT JOIN Athletes b "
             "ON a.athlete_id = b.athlete_id "
             "LEFT JOIN Events c "
-            "ON a.event_id = c.event_id "
-            "WHERE NOC = any(:d1) AND discipline = any(:d2) AND medal_type = any(:d3)")
+            "ON a.event_id = c.event_id ")
+    q01 = text("WHERE NOC = :d1 AND discipline = :d2 AND medal_type = :d3")
     
-    cursor_q0 = g.conn.execute(q0,d1=country,d2=category,d3=medal_type)
+    cursor_q0 = g.conn.execute(q00+q01,d1=country,d2=category,d3=medal_type)
     medal_info = []
     for result in cursor_q0:
       medal_info.append(result)  # can also be accessed using result[0]
@@ -145,7 +145,7 @@ def test():
 def athlete_information():
     
   # query all athlete names 选出所有的运动员名字
-  q1 = text("SELECT concat(first_name, ' ', last_name)"
+  q1 = text("SELECT concat(first_name, ' ', last_name) "
      "FROM Athletes")
 
   cursor_q1 = g.conn.execute(q1)
