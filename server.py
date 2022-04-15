@@ -318,7 +318,7 @@ def delete():
   for result in cursor:
     exists_id.append(result[0])
   cursor.close()
-  
+  print(exists_id)
   if new_id not in exists_id:
     error_statement = "Error: id does not exist in the table!"
     return render_template("error.html", error_statement = error_statement)
