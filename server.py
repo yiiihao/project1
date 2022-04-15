@@ -186,16 +186,22 @@ def find():
   cursor_q2 = g.conn.execute(text(cmd2), v1 = first_name,v2=last_name)
   data2 = []
   for result in cursor_q2:
-    print(result)
+    #print(result)
     data2.append(result)  # can also be accessed using result[0]
   cursor_q2.close()
 
-  cmd1 = "SELECT concat(first_name, ' ', last_name) Athlete, NOC Country, discipline Discipline, category Category, event_name Event Name, location Location, day Event Day, start_time Event Start Time FROM Events a LEFT JOIN Participate b ON a.event_id = b.event_id LEFT JOIN Athletes c ON b.athlete_id = c.athlete_id WHERE first_name = :v1 AND last_name = v2"
+  cmd1 = text("SELECT concat(first_name, ' ', last_name) Athlete, NOC Country, discipline Discipline, category Category, event_name Event Name, location Location, day Event Day, start_time Event Start Time" 
+              "FROM Events a" 
+              "LEFT JOIN Participate b "
+              "ON a.event_id = b.event_id" 
+              "LEFT JOIN Athletes c" 
+              "ON b.athlete_id = c.athlete_id" 
+              "WHERE first_name = :v1 AND last_name = v2")
 
-  cursor_q1 = g.conn.execute(text(cmd1), v1 = first_name,v2=last_name)
+  cursor_q1 = g.conn.execute(cmd1, v1 = first_name,v2=last_name)
   data1 = []
   for result in cursor_q1:
-    print(result)
+    #print(result)
     data1.append(result)  # can also be accessed using result[0]
   cursor_q1.close()
 
@@ -207,7 +213,7 @@ def find():
   athlete = []
   for result in cursor_q:
     athlete.append(result)  # can also be accessed using result[0]
-  cursor_q1.close()
+  cursor_q.close()
   
   context = dict(athlete_name = athlete, athlete_data = data1, event_data = data2)
   
