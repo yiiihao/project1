@@ -84,12 +84,12 @@ def index():
   return render_template("index.html")
 
 #创建分页面1 奖牌
-# @app.route('/medal_ranking')
-# def medal_ranking():
-# #   # DEBUG: this is debugging code to see what request looks like
-# #   print(request.args) 
+@app.route('/medal_ranking')
+def medal_ranking():
+#   # DEBUG: this is debugging code to see what request looks like
+#   print(request.args) 
   
-#     return render_template("medal_ranking.html")
+    return render_template("medal_ranking.html")
 
 # # 互动功能
 # # 选择想要的奖牌信息 select information for medals
