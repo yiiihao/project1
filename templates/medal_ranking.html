@@ -46,10 +46,16 @@
 </select>
 <br>
  
-<form action = "/input" method='POST'></form>
+<form action = "/selection" method='POST'></form>
 <button onclick="add(document.getElementById('category').value,document.getElementById('type').value,document.getElementById('country').value)">Submit</button>
 </form>
 
+<div>
+    {% for n in test_data %}
+    <div>{{n}}</div>
+    {% endfor %}
+</div>
+ 
 <script>
   function add(a,b,c) {
     sum=a+b+c;
