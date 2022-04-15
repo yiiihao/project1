@@ -93,15 +93,22 @@ def medal_ranking():
 
 # 互动功能
 # 选择想要的奖牌信息 select information for medals
-@app.route('/select', methods=['POST','GET'])
-def selection():
 
-  c = request.form["cars"]
-  print(c)
+
+@app.route("/test" , methods=['GET', 'POST'])
+def test():
+    select = request.form.get('comp_select')
+    return(str(select)) # just to see what select is
+
+# @app.route('/select', methods=['POST','GET'])
+# def selection():
+#   c = request.form["cars"]
+#   print(c)
    
-  context = dict(test_data = c)           
+#   context = dict(test_data = c)           
   
-  return render_template("medal_ranking.html", **context)
+#   return render_template("medal_ranking.html", **context)
+
 
 
 #创建分页面2 运动员
