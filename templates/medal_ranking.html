@@ -48,7 +48,11 @@
 </form>
 
  Test 求求
-<div>{{test_data}}</div>
+ <div>
+    {% for n in medal_data %}
+    <div>{{n}}</div>
+    {% endfor %}
+  </div>
  
   
 </body>
