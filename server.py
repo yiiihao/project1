@@ -190,7 +190,7 @@ def find():
     data2.append(result)  # can also be accessed using result[0]
   cursor_q2.close()
 
-  cmd1 = text("SELECT concat(first_name, ' ', last_name) Athlete, NOC Country, discipline Discipline, category Category, event_name Event Name, location Location, day Event Day, start_time Event Start Time" 
+  cmd1 = text("SELECT concat(first_name, ' ', last_name) Athlete, NOC Country, discipline Discipline, category Category, event_name Event_Name, location Location, day Event_Day, start_time Event_Start_Time" 
               "FROM Events a" 
               "LEFT JOIN Participate b "
               "ON a.event_id = b.event_id" 
