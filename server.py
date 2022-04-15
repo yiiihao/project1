@@ -92,9 +92,23 @@ def medal_ranking():
     return render_template("medal_ranking.html")
 
 # # 互动功能
+
+# 返回全部奖牌榜 return medal ranking for all
+@app.route('/view', methods=['POST'])
+def view():
+  cmd = "SELECT * FROM Medals_of_event_of_athlete"
+  cursor = g.conn.execute(text(cmd))
+  data = []
+  for result in cursor_q2:
+    #print(result)
+    data.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  context = dict(view_data = data)
+    
+  return render_template("medal_ranking.html", **context)
+
 # # 选择想要的奖牌信息 select information for medals
-
-
 @app.route("/medal_ranking" , methods=['GET', 'POST'])
 def test():
     v1 = request.form.get('category')
@@ -151,14 +165,6 @@ def test():
 
     return render_template("medal_ranking.html", **context)
 
-# @app.route('/select', methods=['POST','GET'])
-# def selection():
-#   c = request.form["cars"]
-#   print(c)
-   
-#   context = dict(test_data = c)           
-  
-#   return render_template("medal_ranking.html", **context)
 
 
 
@@ -179,7 +185,6 @@ def athlete_information():
   context = dict(athlete_name = athlete)
 
   return render_template("athlete_information.html", **context)
-
 
 
 # 查找喜欢的运动员 find information about athletes interested
