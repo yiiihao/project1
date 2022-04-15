@@ -143,6 +143,30 @@ def submit():
 def athlete_information():
   return render_template("athlete_information.html")
 
+
+
+# 查找喜欢的运动员 find information about athletes interested
+@app.route('/find', methods=['POST'])
+def find():
+  name = request.form['name']
+  first_name, last_name = name.split()
+    
+  cmd = "SELECT concat(first_name, ' ', last_name) AS "Athlete", nickname AS "Nickname", gender AS "Gender", noc AS "Country", birthday AS "Birthday", age AS "Age"
+        "FROM Athletes"
+        "WHERE first_name = :v1 AND last_name = :v2";
+  cursor_q1 = g.conn.execute(text(cmd), v1 = first_name,v2=last_name)
+  athlete = []
+  for result in cursor_q1:
+    athlete.append(result)  # can also be accessed using result[0]
+  cursor_q1.close()
+  
+  context = dict(athlete_data=athlete)
+  
+  return render_template("athlete_information.html", **context)
+  #return redirect('/event_schedule',**context)
+
+
+
 #创建分页面3 比赛信息
 @app.route('/event_schedule')
 def event_schedule():
@@ -182,27 +206,27 @@ def add():
   new_id = request.form['id']
   print(new_id)
 
-  query = 'SELECT * FROM interested_event'
-  cursor = g.conn.execute(text(query))
-  exists_id = []
-  for result in cursor:
-    exists_id.append(result[0])
-  cursor.close()
+#   query = 'SELECT * FROM interested_event'
+#   cursor = g.conn.execute(text(query))
+#   exists_id = []
+#   for result in cursor:
+#     exists_id.append(result[0])
+#   cursor.close()
   
-  #print(exists_id)
+#   #print(exists_id)
 
-  if new_id in exists_id:
-    error = "Event id already exists"
-  else:
-    cmd = 'INSERT INTO interested_event(id) VALUES (:id)';
-    g.conn.execute(text(cmd), id = new_id);
-    return redirect('/event_schedule')
+#   if new_id in exists_id:
+#     error = "Event id already exists"
+#   else:
+#     cmd = 'INSERT INTO interested_event(id) VALUES (:id)';
+#     g.conn.execute(text(cmd), id = new_id);
+#     return redirect('/event_schedule')
 
-#   try:
-#       cmd = 'INSERT INTO interested_event(id) VALUES (:id)';
-#       g.conn.execute(text(cmd), id = new_id);
-#   except:
-#       pass
+  try:
+      cmd = 'INSERT INTO interested_event(id) VALUES (:id)';
+      g.conn.execute(text(cmd), id = new_id);
+  except:
+      pass
   return render_template('event_schedule', error=error)
 
 # 删除喜欢的比赛 delete input data to the interested_event table
