@@ -122,8 +122,9 @@ def selection():
 
   #request.args
   #country = request.args.get("country")
-  c = request.form.get("cars")
-  print(category)
+  result = request.form
+  #c = request.form.get("cars")
+  print(result)
 
 #   args = request.args.to_dict() #get value
 #   input = args.get('result') #get value
@@ -146,7 +147,7 @@ def selection():
 #     test.append(result)
 #   cursor.close()
    
-  context = dict(test_data = c)
+  context = dict(test_data = result)
              
 #   q1 = text("SELECT medal_type, first_name, last_name, NOC,discipline, category, event_name"
 #             "FROM Medals_of_event_of_athlete a"
