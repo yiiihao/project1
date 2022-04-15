@@ -115,7 +115,7 @@ def medal_ranking():
 # 互动功能
 # 选择想要的奖牌信息 select information for medals
 @app.route('/input', methods=['POST'])
-def query():
+def search():
   #request.args
   args = request.args.to_dict() #get value
   input = args.get('result') #get value
