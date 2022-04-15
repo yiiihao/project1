@@ -106,11 +106,11 @@ def test():
     country = v3
     
     if v1 == "ALL":
-        category = ["Figure Skating", "Freestyle Skiing", "Snowboard"]
+        category = {"Figure Skating", "Freestyle Skiing", "Snowboard"}
     elif v2 == "ALL":
-        medal_type = ["gold", "silver", "bronze"]
+        medal_type = {"gold", "silver", "bronze"}
     elif v3 == "ALL":
-        country = ["France,ROC","Belgium,People's Republic of China","Canada","Estonia","Japan","United States of America","Switzerland","Norway"]
+        country = {"France,ROC","Belgium,People's Republic of China","Canada","Estonia","Japan","United States of America","Switzerland","Norway"}
     q0 = text("SELECT medal_type, concat(first_name, ' ', last_name), noc, discipline,category,event_name "
             "FROM Medals_of_event_of_athlete a "
             "LEFT JOIN Athletes b "
