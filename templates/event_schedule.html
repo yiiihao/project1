@@ -18,7 +18,7 @@
     {% endfor %}
   </div>
 
-  <p> User's interested event id
+  <p> User's interested event id 感兴趣的比赛id
   <div>
     {% for n in id_data %}
     <div>{{n}}</div>
@@ -29,6 +29,7 @@
 <p>Add Interested Events: <input type="int" name="id"> <input type="submit" value="Add"></p>
 </form>
   
+
 <form method="POST" action="/delete">
 <p>Remove Interested Events: <input type="int" name="id"> <input type="submit" value="Delete"></p>
 </form>
