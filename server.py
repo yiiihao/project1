@@ -173,8 +173,8 @@ def find():
   
   context = dict(athlete_data=athlete)
   
-  return render_template("athlete_information.html", **context)
-  #return redirect('/event_schedule',**context)
+  #return render_template("athlete_information.html", **context)
+  return redirect('/event_schedule')
 
 
 
