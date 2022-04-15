@@ -13,12 +13,17 @@
 <p>Athlete names in the database</p>
   <div>{{athlete_name}}</div>
 <br>
+  
 Find information of athletes
 <form method="POST" action="/find">
 <p>Name of the athlete: <input type="text" name="name"> <input type="submit" value="Find"></p>
 </form>
 
-  
+<div>
+    {% for n in athlete_data %}
+    <div>{{n}}</div>
+    {% endfor %}
+</div>  
 
 <p><a href="/index">Go back to main page</a></p>
 </body>
