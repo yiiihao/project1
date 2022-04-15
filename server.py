@@ -102,7 +102,7 @@ def view():
              "from (SELECT noc, medal_type, count(medal_type) AS num_medal FROM Medals_of_event_of_athlete a LEFT JOIN Athletes b ON a.athlete_id = b.athlete_id "
              "GROUP BY noc, medal_type) temp group by noc ORDER BY gold DESC")
     
-  cursor = g.conn.execute(text(cmd))
+  cursor = g.conn.execute(cmd)
   data = []
   for result in cursor:
     #print(result)
