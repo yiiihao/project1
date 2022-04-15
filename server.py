@@ -105,21 +105,43 @@ def test():
     medal_type = v2
     country = v3
     
-    if v1 == "ALL":
-        category = {"Figure Skating", "Freestyle Skiing", "Snowboard"}
-    elif v2 == "ALL":
-        medal_type = {"gold", "silver", "bronze"}
-    elif v3 == "ALL":
-        country = {"France,ROC","Belgium,People's Republic of China","Canada","Estonia","Japan","United States of America","Switzerland","Norway"}
-    q00 = text("SELECT medal_type, concat(first_name, ' ', last_name), noc, discipline,category,event_name "
+    q0 = text("SELECT medal_type, concat(first_name, ' ', last_name), noc, discipline,category,event_name "
             "FROM Medals_of_event_of_athlete a "
             "LEFT JOIN Athletes b "
             "ON a.athlete_id = b.athlete_id "
             "LEFT JOIN Events c "
-            "ON a.event_id = c.event_id ")
-    q01 = text("WHERE NOC = :d1 AND discipline = :d2 AND medal_type = :d3")
+            "ON a.event_id = c.event_id "
+            "WHERE NOC = :d1 AND discipline = :d2 AND medal_type = :d3")
     
-    cursor_q0 = g.conn.execute(q00+q01,d1=country,d2=category,d3=medal_type)
+    if v1 == "ALL" and v2 == "ALL" and v3 == "ALL":
+        q0 = text("SELECT medal_type, concat(first_name, ' ', last_name), noc, discipline,category,event_name FROM Medals_of_event_of_athlete a "
+                  "LEFT JOIN Athletes b ON a.athlete_id = b.athlete_id LEFT JOIN Events c ON a.event_id = c.event_id")
+    elif v1 == "ALL" and v2 == "ALL":
+        q0 = text("SELECT medal_type, concat(first_name, ' ', last_name), noc, discipline,category,event_name FROM Medals_of_event_of_athlete a "
+                  "LEFT JOIN Athletes b ON a.athlete_id = b.athlete_id LEFT JOIN Events c ON a.event_id = c.event_id "
+                  "WHERE NOC = :d3")
+    elif v1 == "ALL" and v3 == "ALL":
+        q0 = text("SELECT medal_type, concat(first_name, ' ', last_name), noc, discipline,category,event_name FROM Medals_of_event_of_athlete a "
+                  "LEFT JOIN Athletes b ON a.athlete_id = b.athlete_id LEFT JOIN Events c ON a.event_id = c.event_id "
+                  "WHERE medal_type = :d2")
+    elif v2 == "ALL" and v3 == "ALL":
+        q0 = text("SELECT medal_type, concat(first_name, ' ', last_name), noc, discipline,category,event_name FROM Medals_of_event_of_athlete a "
+                  "LEFT JOIN Athletes b ON a.athlete_id = b.athlete_id LEFT JOIN Events c ON a.event_id = c.event_id "
+                  "WHERE discipline = :d1")
+    elif v1 == "ALL":
+        q0 = text("SELECT medal_type, concat(first_name, ' ', last_name), noc, discipline,category,event_name FROM Medals_of_event_of_athlete a "
+                  "LEFT JOIN Athletes b ON a.athlete_id = b.athlete_id LEFT JOIN Events c ON a.event_id = c.event_id "
+                  "WHERE medal_type = :d2 and NOC = :d3")
+    elif v2 == "ALL":
+        q0 = text("SELECT medal_type, concat(first_name, ' ', last_name), noc, discipline,category,event_name FROM Medals_of_event_of_athlete a "
+                  "LEFT JOIN Athletes b ON a.athlete_id = b.athlete_id LEFT JOIN Events c ON a.event_id = c.event_id "
+                  "WHERE discipline = :d1 and NOC = :d3")
+    elif v3 == "ALL":
+        q0 = text("SELECT medal_type, concat(first_name, ' ', last_name), noc, discipline,category,event_name FROM Medals_of_event_of_athlete a "
+                  "LEFT JOIN Athletes b ON a.athlete_id = b.athlete_id LEFT JOIN Events c ON a.event_id = c.event_id "
+                  "WHERE discipline = :d1 and medal_type = :d2")
+    
+    cursor_q0 = g.conn.execute(q0,d1=category,d2=medal_type,d3=country)
     medal_info = []
     for result in cursor_q0:
       medal_info.append(result)  # can also be accessed using result[0]
