@@ -1,4 +1,19 @@
  <html>
+  <head>
+    <meta charset="utf-8">
+     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+     <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+     <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+ 
+     <title>123</title>
+     <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+     <script type="text/javascript" src="https://assets.pyecharts.org/assets/maps/world.js"></script>
+ 
+   </head>
+  
   <style>
     body{ 
       font-size: 15pt;
@@ -10,10 +25,9 @@
 <body>
   <h1>Medal Ranking 奖牌榜</h1>
 
-<form class = "ey" method='POST',action="/action_page.php">
 <label for="category">Choose category:</label>
   
-<select id="category" name="category">
+<select id="category" name="category" onchange = 'changecategory(this)'>
   <option value="all">ALL</option>
   <option value="Figure Skating">Figure Skating</option>
   <option value="Freestyle Skiing">Freestyle Skiing</option>
@@ -23,7 +37,7 @@
 <br>
  
 <label for="type">Choose medal type:</label>
-<select id="type" name="type">
+<select id="type" name="type" onchange = 'changetype(this)'>
   <option value="all">ALL</option>
   <option value="gold">gold</option>
   <option value="silver">silver</option>
@@ -32,7 +46,7 @@
 
 <br>
 <label for="country">Select a country:</label>
-<select id="country" name="country">
+<select id="country" name="country" onchange = 'changecountry(this)'>
   <option value="All">All</option>
   <option value="People''s Republic of China">People''s Republic of China</option>
   <option value="ROC">ROC</option>
@@ -45,10 +59,34 @@
   <option value="Norway">Norway</option>
 </select>
 <br>
-<input onclick="submit()" class="SubmitButton" type="submit" name="SUBMITBUTTON" value="Submit" style="font-size:20px; "/>
-
+ 
+<form action = "/input" method='POST'></form>
+<input type="button" value="Submit" style="font-size:20px" onclick="query()"/>
 </form>
 
+<script type="text/javascript">
+  function query(){
+    category = $('#category').val().toString();
+    type = $('#type').val().toString();
+    country = $('#country').val().toString();
+    update(category + "| " + type + "|" + country);
+  }
+ 
+function update(val){
+      $.ajax({
+          type: "GET",
+          url: "http://127.0.0.1:5000/search",
+          dataType: "json",
+          data: {result: val},
+          async: false,
+          success: function(result){
+              /*这个方法里是ajax发送请求成功之后执行的代码*/
+              showData(result);//我们仅做数据展示
+          },
+          error: function(msg){
+              alert("ajax连接异常："+msg);
+          }
+      });
 
 
 </body>
