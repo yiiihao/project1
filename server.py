@@ -96,7 +96,14 @@ def medal_ranking():
 # 返回全部奖牌榜 return medal ranking for all
 @app.route('/view', methods=['POST'])
 def view():
-  cmd = "SELECT * FROM Medals_of_event_of_athlete"
+  #cmd = "SELECT * FROM Medals_of_event_of_athlete"
+  cmd = text("WITH medalTable(noc, medal_type, num_medal) AS (SELECT noc, medal_type, count(medal_type) AS num_medal FROM Medals_of_event_of_athlete a "
+        "LEFT JOIN Athletes b ON a.athlete_id = b.athlete_id GROUP BY noc, medal_type) "
+        "select noc, max(case when medal_type = 'gold' then num_medal else 0 end) as gold, "
+        "max(case when medal_type = 'silver' then num_medal else 0 end) as silver, "
+        "max(case when medal_type = 'bronze' then num_medal else 0 end) as bronze "
+        "from medalTable group by noc ORDER BY gold DESC")
+    
   cursor = g.conn.execute(text(cmd))
   data = []
   for result in cursor:
