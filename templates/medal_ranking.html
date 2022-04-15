@@ -15,7 +15,7 @@
  
 <label for="category">Choose category:</label>
   
-<select id="category" name="category" onchange = 'changecategory(this)'>
+<select id="category" name="category">
   <option value="all">ALL</option>
   <option value="Figure Skating">Figure Skating</option>
   <option value="Freestyle Skiing">Freestyle Skiing</option>
@@ -24,31 +24,7 @@
  
 <br>
  
-<label for="type">Choose medal type:</label>
-<select id="type" name="type" onchange = 'changetype(this)'>
-  <option value="all">ALL</option>
-  <option value="gold">gold</option>
-  <option value="silver">silver</option>
-  <option value="bronze">bronze</option>
-</select>
-
-<br>
-<label for="country">Select a country:</label>
-<select id="country" name="country" onchange = 'changecountry(this)'>
-  <option value="All">All</option>
-  <option value="People''s Republic of China">People''s Republic of China</option>
-  <option value="ROC">ROC</option>
-  <option value="Japan">Japan</option>
-  <option value="Switzerland">Switzerland</option>
-  <option value="Belgium">Belgium</option>
-  <option value="France">France</option>
-  <option value="United States of America">United States of America</option>
-  <option value="Canda">Canda</option>
-  <option value="Norway">Norway</option>
-</select>
-<br>
-
-<input type="button" name="button" value="submit" />
+<input type="button" value="Submit" name="Submit"/>
 </form>
 
 <div>{{test_data}}</div>
