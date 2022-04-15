@@ -208,13 +208,9 @@ def find():
     data2.append(result)  # can also be accessed using result[0]
   cursor_q2.close()
 
-  cmd1 = text("SELECT concat(first_name, ' ', last_name) Athlete, NOC Country, discipline,category, event_name Event_Name, location, day Event_Day, start_time " 
-              "FROM Events a " 
-              "LEFT JOIN Participate b "
-              "ON a.event_id = b.event_id " 
-              "LEFT JOIN Athletes c " 
-              "ON b.athlete_id = c.athlete_id " 
-              "WHERE first_name = :v1 AND last_name = :v2")
+  cmd1 = text("SELECT b.first_name, b.last_name, nickname, b.gender, b.noc, birthday, age, c.first_name, c.last_name "
+              "FROM Athletes b LEFT JOIN Instruct a ON a.athlete_id = b.athlete_id LEFT JOIN Coaches c ON a.coach_id = c.coach_id "
+              "WHERE b.first_name = :v1 AND b.last_name = :v2")
 
   cursor_q1 = g.conn.execute(cmd1, v1 = first_name,v2=last_name)
   data1 = []
@@ -265,7 +261,7 @@ def event_schedule():
   cursor_q2 = g.conn.execute(q2)
   interested_event_id = []
   for result in cursor_q2:
-    interested_event_id.append(result)
+    interested_event_id.append(result[0])
   cursor_q2.close()
            
   context = dict(event_data = events, 
@@ -324,7 +320,6 @@ def delete():
   cursor.close()
   
   if new_id not in exists_id:
-    
     error_statement = "Error: id does not exist in the table!"
     return render_template("error.html", error_statement = error_statement)
   else:
