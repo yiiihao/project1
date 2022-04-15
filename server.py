@@ -35,12 +35,20 @@ DATABASEURI = "postgresql://"+DB_USER+":"+DB_PASSWORD+"@"+DB_SERVER+"/proj1part2
 engine = create_engine(DATABASEURI)
 
 
-# Here we create a interested_event table for users to add event id they are interested in
+# 感兴趣的比赛id表
+#Here we create a interested_event table for users to add event id they are interested in
 engine.execute("""DROP TABLE IF EXISTS interested_event;""")
 engine.execute("""CREATE TABLE IF NOT EXISTS interested_event (
   id int,
   primary key (id));""")
 #engine.execute("""INSERT INTO interested_event(id) VALUES (1), (5);""")
+
+# 奖牌表
+#Here we create a medal_info table for users to view medal information
+engine.execute("""DROP TABLE IF EXISTS medal_info;""")
+engine.execute("""CREATE TABLE IF NOT EXISTS medal_info (
+  id int,
+  primary key (id));""")
 
 
 @app.before_request
@@ -83,7 +91,46 @@ def index():
 #创建分页面1 奖牌
 @app.route('/medal_ranking')
 def medal_ranking():
-  return render_template("medal_ranking.html")
+  # DEBUG: this is debugging code to see what request looks like
+  print(request.args)
+    
+  # query all user selected medal information
+  q1 = text("SELECT medal_type FROM Medals_of_event_of_athlete a"
+            "LEFT JOIN Athletes b"
+            "ON a.id = b.id"
+            "WHERE NOC in country AND discipline in discipline AND medal_type in type")
+    
+  cursor_q1 = g.conn.execute(q1)
+  medal = []
+  for result in cursor_q2:
+    medal.append(result)
+  cursor_q1.close()
+           
+  context = dict(medal_data = medal)
+  
+  return render_template("medal_ranking.html", **context)
+
+# 互动功能
+# 选择想要的奖牌信息 select information for medals
+@app.route('/action_page.php', methods=['POST'])
+def select():
+  category = request.form['category']
+  discipline = request.form['type']
+  country = request.form['country']
+
+  q1 = text("SELECT medal_type FROM Medals_of_event_of_athlete a"
+            "LEFT JOIN Athletes b"
+            "ON a.id = b.id"
+            "WHERE NOC in country AND discipline in discipline AND medal_type in type")
+    
+  cursor_q1 = g.conn.execute(q1)
+  for result in cursor_q1:
+    cmd = 'INSERT INTO interested_event(id) VALUES (:data)';
+    g.conn.execute(text(cmd), data = result);
+  cursor_q1.close()
+  
+  return redirect('/event_schedule')
+
 
 #创建分页面2 运动员
 @app.route('/athlete_information')
