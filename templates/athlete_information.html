@@ -20,18 +20,20 @@ Find athlete information <br>
 </form>
 
 
-<div>
-    {% for n in athlete_data %}
-    <div>{{n}}</div>
-    {% endfor %}
-</div>  
-  
+Athlete Info: <br>
 <div>
     {% for n in event_data %}
     <div>{{n}}</div>
     {% endfor %}
 </div>  
 
+Event Info: <br>
+<div>
+    {% for n in athlete_data %}
+    <div>{{n}}</div>
+    {% endfor %}
+</div>  
+  
 <p><a href="/index">Go back to main page</a></p>
 </body>
 
