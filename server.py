@@ -178,18 +178,18 @@ def athlete_information():
 @app.route('/find', methods=['POST'])
 def find():
   # query all athlete names 选出所有的运动员名字
-  q1 = text("SELECT concat(first_name, ' ', last_name)"
-     "FROM Athletes")
+#   q1 = text("SELECT concat(first_name, ' ', last_name)"
+#      "FROM Athletes")
 
-  cursor_q1 = g.conn.execute(q1)
-  athlete = []
-  for result in cursor_q1:
-    athlete.append(result)  # can also be accessed using result[0]
-  cursor_q1.close()
+#   cursor_q1 = g.conn.execute(q1)
+#   athlete = []
+#   for result in cursor_q1:
+#     athlete.append(result)  # can also be accessed using result[0]
+#   cursor_q1.close()
     
   name = request.form['name']
   first_name, last_name = name.split()
-  #print(first_name, last_name)
+  print(first_name, last_name)
   cmd = "SELECT concat(first_name, ' ', last_name) Athlete, nickname Nickname, gender Gender, noc Country, birthday Birthday, age Age FROM Athletes WHERE first_name = :v1 AND last_name = :v2";
   cursor_q2 = g.conn.execute(text(cmd), v1 = first_name,v2=last_name)
   data = []
