@@ -117,12 +117,12 @@ def medal_ranking():
 
 # 互动功能
 # 选择想要的奖牌信息 select information for medals
-@app.route('/selection', methods=['POST'])
+@app.route('/action_page.php', methods=['POST'])
 def selection():
 
   #request.args
   #country = request.args.get("country")
-  category = request.form.get("category")
+  c = request.form.get("cars")
   print(category)
 
 #   args = request.args.to_dict() #get value
@@ -146,7 +146,7 @@ def selection():
 #     test.append(result)
 #   cursor.close()
    
-  context = dict(test_data = category)
+  context = dict(test_data = c)
              
 #   q1 = text("SELECT medal_type, first_name, last_name, NOC,discipline, category, event_name"
 #             "FROM Medals_of_event_of_athlete a"
