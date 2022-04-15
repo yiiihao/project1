@@ -14,7 +14,7 @@
 <form class="form-inline" method="POST" action="{{ url_for('medal_ranking') }}">
   <div class="form-group">
     <div class="input-group">
-        <span class="input-group-addon">Please select</span>
+        <span class="input-group-addon">Select sports</span>
             <select name="category" class="selectpicker form-control">
               <option value="ALL">ALL</option>
               <option value="Figure Skating">Figure Skating</option>
@@ -22,7 +22,7 @@
               <option value="Snowboard">Snowboard</option>
             </select>
      <br>
-        <span class="input-group-addon">Please select</span>
+        <span class="input-group-addon">Select medal type</span>
             <select name="type" class="selectpicker form-control">
               <option value="ALL">ALL</option>
               <option value="gold">gold</option>
@@ -30,10 +30,10 @@
               <option value="bronze">bronze</option>
             </select>
      <br>
-        <span class="input-group-addon">Please select</span>
+        <span class="input-group-addon">Select country</span>
            <select name="country" class="selectpicker form-control">
               <option value="ALL">ALL</option>
-              <option value="People's Republic of China">People''s Republic of China</option>
+              <option value="People's Republic of China">People's Republic of China</option>
               <option value="ROC">ROC</option>
               <option value="Japan">Japan</option>
               <option value="Switzerland">Switzerland</option>
@@ -48,7 +48,7 @@
   </div>
 </form>
 
- Test 求求 <br>
+ Query for medal event and athlete information <br>
  raw data
  <div>{{raw_data}}<div>
  <br>
